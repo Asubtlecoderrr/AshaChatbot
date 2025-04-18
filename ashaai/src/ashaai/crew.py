@@ -3,8 +3,19 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.tools import BaseTool
 from crewai_tools import (
     FileReadTool,
+    FileSearchTool
 )
 from tools.custom_tool import HerKeyJobAPITool,HerKeyLearningAPITool,conversationOutput
+from crewai.knowledge import Knowledge
+from crewai.memory import LongTermMemory
+from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
+
+knowledge_base = Knowledge(
+    path='knowledge_base/',
+    chunk_size=500,
+    chunk_overlap=50,
+    recursive=True
+)
 
 
 # If you want to run a snippet of code before or after the crew starts,
@@ -21,9 +32,14 @@ class Ashaai():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     
-    resume_reader_tool = FileReadTool(file_path='resume/r.pdf')
-    herkey_job_tool = HerKeyJobAPITool(skills="skills", location="location")
+    user_id = 'r'
+    
+    #Tools
+    resume_reader_tool = FileReadTool(file_path=f'resume/{user_id}.pdf')
     herkey_learning_tool = HerKeyLearningAPITool()
+    
+    #db path
+    db_path = f"ashaaiDB//memory_{user_id}.db"
     
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
@@ -33,6 +49,7 @@ class Ashaai():
             config=self.agents_config['conversational_agent'],
             verbose=True,
             allow_delegation=True,
+            knowledge=knowledge_base
         )
 
     @agent
@@ -45,9 +62,10 @@ class Ashaai():
     
     @agent
     def job_search_agent(self) -> Agent:
+        op = self.conversational_task.output.json_dict
         return Agent(
             config=self.agents_config['job_search_agent'],
-            tools=[self.herkey_job_tool],
+            tools=[HerKeyJobAPITool(skills=op.get("skills"), location=op.get("location"))],
             verbose=True
         )
         
@@ -83,13 +101,13 @@ class Ashaai():
         )
         
     @task 
-    def job_search_task(self) -> Task:
-        op = self.conversational_task.output.json_dict
-        
+    def job_search_task(self) -> Task:        
         return Task(
             config=self.tasks_config['job_search_task'],
-            context=[op["collected_info"]],
+            tools=[HerKeyJobAPITool()],
+            context=[self.conversational_task],
         )
+        
     @task
     def recommend_learning_task(self) -> Task:
         return Task(
@@ -114,5 +132,9 @@ class Ashaai():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
+            memory=True,
+            long_term_memory=LongTermMemory(
+                storage=LTMSQLiteStorage(db_path=db_path)
+            )
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )

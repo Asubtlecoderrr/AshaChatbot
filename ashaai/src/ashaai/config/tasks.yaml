@@ -23,15 +23,24 @@ intent_classification_task:
 
 conversational_task:
   description: >
-    Engage the user in natural dialogue. Classify them into a cohort (Starter, Restarter, or Riser),
+    Engage the user in natural dialogue. 
     identify their intent (e.g., resume_analysis, job_search, recommend_learning, greeting, small_talk),
     collect any missing information needed to complete the request, and only if required, delegate the task
     to the appropriate specialist agent (e.g., Resume Analyst, Job Search Agent, Learning Advisor).
     If the query does not require any agent, answer it directly.
+    as for delegating job search, ensure you have:
+    - user's skills
+    - years of experience
+    - preferred job location
+
+    If anything is missing, ask the user and store the answer.
+    Once all info is present, trigger job search by setting intent = "job_search".
 
   expected_output: >
     A JSON object with:
-    - collected_info: { key: value, ... }  # 👈 e.g., skills, experience, location, preferences
+    - skills : str
+    - experience : int
+    - location : str
     - agent_to_call: string | null
     - response: string
 
@@ -70,8 +79,10 @@ job_search_task:
       - Short description
 
   agent: job_search_agent
+  
   context:
-    - conversational_task.collected_info
+    skills: "{{ skills }}"
+    location: "{{ location }}"
 
 recommend_learning_task:
   description: >

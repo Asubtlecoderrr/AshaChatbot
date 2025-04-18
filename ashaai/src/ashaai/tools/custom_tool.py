@@ -4,17 +4,11 @@ from typing import Type ,Dict, Optional
 from pydantic import BaseModel, Field
 import requests
 
-class HerKeyJobInput(BaseModel):
-    """Input schema for HerKey job search."""
-    skills: str = Field(..., description="Skills the user is interested in.")
-    location: str = Field(None, description="Location filter (optional).")
-
 class HerKeyJobAPITool(BaseTool):
     name: str = "herkey_job_api"
     description: str = (
        "Fetch job listings from HerKeys internal API."
     )
-    args_schema: Type[BaseModel] = HerKeyJobInput
 
     def _run(self, skills: str, location: str = None) -> str:
         url = "https://api-prod.herkey.com/api/v1/herkey/jobs/es_candidate_jobs"
@@ -82,6 +76,8 @@ class HerKeyLearningAPITool(BaseTool):
 
 
 class conversationOutput(BaseModel):
-    collected_info: Dict[str, str]
+    skills: Optional[str]
+    location: Optional[str]
+    experience: int
     agent_to_call: Optional[str]
     response: str
