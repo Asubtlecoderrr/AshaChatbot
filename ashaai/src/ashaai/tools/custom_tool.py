@@ -1,5 +1,6 @@
 from crewai.tools import BaseTool
-from typing import Type
+from typing import Type ,Dict, Optional
+
 from pydantic import BaseModel, Field
 import requests
 
@@ -80,3 +81,7 @@ class HerKeyLearningAPITool(BaseTool):
         return sessions
 
 
+class conversationOutput(BaseModel):
+    collected_info: Dict[str, str]
+    agent_to_call: Optional[str]
+    response: str

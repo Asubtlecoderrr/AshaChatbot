@@ -4,7 +4,7 @@ from crewai.tools import BaseTool
 from crewai_tools import (
     FileReadTool,
 )
-from tools.custom_tool import HerKeyJobAPITool,HerKeyLearningAPITool
+from tools.custom_tool import HerKeyJobAPITool,HerKeyLearningAPITool,conversationOutput
 
 
 # If you want to run a snippet of code before or after the crew starts,
@@ -21,7 +21,9 @@ class Ashaai():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     
-    resume_reader_tool = FileReadTool(file_path='storage/resumes.pdf')
+    resume_reader_tool = FileReadTool(file_path='resume/r.pdf')
+    herkey_job_tool = HerKeyJobAPITool(skills="skills", location="location")
+    herkey_learning_tool = HerKeyLearningAPITool()
     
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
@@ -39,16 +41,13 @@ class Ashaai():
             config=self.agents_config['resume_analyst'],
             tools=[self.resume_reader_tool],
             verbose=True,
-             context={
-                "cohart": ""
-            }
         )
     
     @agent
     def job_search_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['job_search_agent'],
-            tools=[HerKeyJobAPITool()],
+            tools=[self.herkey_job_tool],
             verbose=True
         )
         
@@ -56,7 +55,7 @@ class Ashaai():
     def learning_advisor(self) -> Agent:
         return Agent(
             config=self.agents_config['learning_advisor'],
-            tools=[HerKeyLearningAPITool()],
+            tools=[self.herkey_learning_tool],
             verbose=True
         )
 
@@ -74,37 +73,34 @@ class Ashaai():
     def intent_classification_task(self) -> Task:
         return Task(
             config=self.tasks_config['intent_classification_task'],
-            output_file='report.md'
         )
     
     @task
     def resume_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['resume_analysis_task'],
-            tools=[self.resume_reader_tool],
-            output_file='report.md'
+            context=[self.cohort_classification_task]
         )
+        
     @task 
     def job_search_task(self) -> Task:
+        op = self.conversational_task.output.json_dict
+        
         return Task(
             config=self.tasks_config['job_search_task'],
-            tools=[HerKeyJobAPITool()],
-            context={ "skills": "skills", "location": "location" },
-            output_file='report.md'
+            context=[op["collected_info"]],
         )
     @task
     def recommend_learning_task(self) -> Task:
         return Task(
             config=self.tasks_config['recommend_learning_task'],
-            tools=[HerKeyLearningAPITool()],
-            output_file='report.md'
         )
     
     @task
     def conversational_task(self) -> Task:
         return Task(
             config=self.tasks_config['conversational_task'],
-            output_file='report.md'
+            output_json=conversationOutput
         )
 
     @crew

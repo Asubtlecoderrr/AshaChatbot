@@ -43,9 +43,6 @@ resume_analysis_task:
     Analyze the user's resume details and extract key skills, strengths, gaps, and areas for improvement.
     Provide tailored suggestions for improvement, including format, keywords, and content alignment
     with desired job roles.
-
-  context: >
-    cohort: "{{ cohort }}"
     
   expected_output: >
     A summary of the resume analysis, including:
@@ -56,15 +53,13 @@ resume_analysis_task:
     All formatted in markdown.
 
   agent: resume_analyst
+  context:
+    - cohort_classification_task
 
 job_search_task:
   description: >
     Using the users profile (skills, experience, preferences, location), query external job APIs
     or platforms and return a curated list of relevant and unbiased job opportunities for women.
-  
-  context: >
-    skills: "{{ skills }}"
-    location: "{{ user_location }}"
 
   expected_output: >
     A ranked list of job opportunities with:
@@ -75,6 +70,8 @@ job_search_task:
       - Short description
 
   agent: job_search_agent
+  context:
+    - conversational_task.collected_info
 
 recommend_learning_task:
   description: >
