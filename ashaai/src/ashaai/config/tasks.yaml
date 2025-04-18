@@ -1,17 +1,92 @@
-research_task:
+cohort_classification_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
+    Classify the user into one of the following cohorts based on the information they've shared:
+    "Starter" (just launching a career), "Restarter" (returning after a gap), or "Riser" (already employed and seeking a roadmap forward).
+    This helps tailor the career guidance appropriately.
+    
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    A single string value: "Starter" | "Restarter" | "Riser"
+    
+  agent: conversational_agent
 
-reporting_task:
+intent_classification_task:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Classify the user's message into one of the following intents: 
+    "greeting", "resume_analysis", "job_search", "recommend_learning", "small_talk", "career_guidance"
+    This helps the system understand the purpose of the user's request.
+    
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A single string value representing the user's intent.
+    
+  agent: conversational_agent
+
+
+conversational_task:
+  description: >
+    Engage the user in natural dialogue. Classify them into a cohort (Starter, Restarter, or Riser),
+    identify their intent (e.g., resume_analysis, job_search, recommend_learning, greeting, small_talk),
+    collect any missing information needed to complete the request, and only if required, delegate the task
+    to the appropriate specialist agent (e.g., Resume Analyst, Job Search Agent, Learning Advisor).
+    If the query does not require any agent, answer it directly.
+
+  expected_output: >
+    A JSON object with:
+    - collected_info: { key: value, ... }  # 👈 e.g., skills, experience, location, preferences
+    - agent_to_call: string | null
+    - response: string
+
+  agent: conversational_agent
+
+
+resume_analysis_task:
+  description: >
+    Analyze the user's resume details and extract key skills, strengths, gaps, and areas for improvement.
+    Provide tailored suggestions for improvement, including format, keywords, and content alignment
+    with desired job roles.
+
+  context: >
+    cohort: "{{ cohort }}"
+    
+  expected_output: >
+    A summary of the resume analysis, including:
+      - key strengths
+      - improvement areas
+      - keyword suggestions
+      - formatting tips
+    All formatted in markdown.
+
+  agent: resume_analyst
+
+job_search_task:
+  description: >
+    Using the users profile (skills, experience, preferences, location), query external job APIs
+    or platforms and return a curated list of relevant and unbiased job opportunities for women.
+  
+  context: >
+    skills: "{{ skills }}"
+    location: "{{ user_location }}"
+
+  expected_output: >
+    A ranked list of job opportunities with:
+      - Job title
+      - Company name
+      - Location (remote/on-site)
+      - Link to apply
+      - Short description
+
+  agent: job_search_agent
+
+recommend_learning_task:
+  description: >
+    Based on the users background and identified skill gaps or aspirations, suggest personalized learning resources,
+    including courses, articles, events, and online communities for women in career transition or growth.
+
+  expected_output: >
+    A list of:
+      - 3 5 curated courses/tutorials
+      - 1 2 relevant communities or peer groups
+      - Optional: upcoming events or webinars
+    Include links and short descriptions for each.
+
+  agent: learning_advisor
+

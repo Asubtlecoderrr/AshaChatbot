@@ -1,21 +1,15 @@
-from crewai.tools import BaseTool
+# from crewai.tools import BaseTool
 from typing import Type
-from pydantic import BaseModel, Field
+# from pydantic import BaseModel, Field
 import requests
 
-class HerKeyJobInput(BaseModel):
-    """Input schema for HerKey job search."""
-    skills: str = Field(..., description="Skills the user is interested in.")
-    location: str = Field(None, description="Location filter (optional).")
-
-class HerKeyJobAPITool(BaseTool):
+class HerKeyJobAPITool():
     name: str = "herkey_job_api"
     description: str = (
        "Fetch job listings from HerKeys internal API."
     )
-    args_schema: Type[BaseModel] = HerKeyJobInput
 
-    def _run(self, skills: str, location: str = None) -> str:
+    def _run(self, filters: dict):
         url = "https://api-prod.herkey.com/api/v1/herkey/jobs/es_candidate_jobs"
 
         headers = {
@@ -28,12 +22,12 @@ class HerKeyJobAPITool(BaseTool):
         params = {
             "page_no": 1,
             "page_size": 100,
-            "job_skills": skills,
+            "job_skills": filters.get("skills", ""),
             "is_global_query": "false",
         }
-        
-        if location:
-            params["location_name"] = location
+
+        if "location" in filters:
+            params["location_name"] = filters["location"]
         
         resp = requests.get(
             url=url,
@@ -48,7 +42,7 @@ class HerKeyJobAPITool(BaseTool):
           for j in data
         )
 
-class HerKeyLearningAPITool(BaseTool):
+class HerKeyLearningAPITool():
     name: str = "herkey_learning_api"
     description: str = "Fetch upcoming featured learning sessions from HerKey."
 
@@ -77,6 +71,11 @@ class HerKeyLearningAPITool(BaseTool):
         if not sessions:
             return "No learning sessions found."
 
-        return sessions
+        return "\n\n".join(
+            f" Headline: {s['headline']['headline1']} Topic: {s['post_content']['post_topic_text']}"
+            for s in sessions
+        )
 
+tool=HerKeyLearningAPITool()
+print(tool._run())
 

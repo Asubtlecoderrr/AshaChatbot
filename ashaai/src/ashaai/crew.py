@@ -1,5 +1,11 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from crewai.tools import BaseTool
+from crewai_tools import (
+    FileReadTool
+)
+from tools.custom_tool import HerKeyJobAPITool,HerKeyLearningAPITool
+
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -14,36 +20,90 @@ class Ashaai():
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-
+    
+    resume_reader_tool = FileReadTool(file_path='storage/resumes.pdf')
+    
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def researcher(self) -> Agent:
+    def conversational_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['researcher'],
-            verbose=True
+            config=self.agents_config['conversational_agent'],
+            verbose=True,
+            allow_delegation=True,
         )
 
     @agent
-    def reporting_analyst(self) -> Agent:
+    def resume_analyst(self) -> Agent:
         return Agent(
-            config=self.agents_config['reporting_analyst'],
+            config=self.agents_config['resume_analyst'],
+            tools=[self.resume_reader_tool],
+            verbose=True,
+             context={
+                "cohart": ""
+            }
+        )
+    
+    @agent
+    def job_search_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['job_search_agent'],
+            tools=[HerKeyJobAPITool()],
+            verbose=True
+        )
+        
+    @agent
+    def learning_advisor(self) -> Agent:
+        return Agent(
+            config=self.agents_config['learning_advisor'],
+            tools=[HerKeyLearningAPITool()],
             verbose=True
         )
 
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+    
     @task
-    def research_task(self) -> Task:
+    def cohort_classification_task(self) -> Task:
         return Task(
-            config=self.tasks_config['research_task'],
+            config=self.tasks_config['cohort_classification_task'],
         )
 
     @task
-    def reporting_task(self) -> Task:
+    def intent_classification_task(self) -> Task:
         return Task(
-            config=self.tasks_config['reporting_task'],
+            config=self.tasks_config['intent_classification_task'],
+            output_file='report.md'
+        )
+    
+    @task
+    def resume_analysis_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['resume_analysis_task'],
+            tools=[self.resume_reader_tool],
+            output_file='report.md'
+        )
+    @task 
+    def job_search_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['job_search_task'],
+            tools=[HerKeyJobAPITool()],
+            context={ "skills": "skills", "location": "location" }
+            output_file='report.md'
+        )
+    @task
+    def recommend_learning_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['recommend_learning_task'],
+            tools=[HerKeyLearningAPITool()],
+            output_file='report.md'
+        )
+    
+    @task
+    def conversational_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['conversational_task'],
             output_file='report.md'
         )
 
