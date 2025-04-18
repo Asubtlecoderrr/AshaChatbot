@@ -2,7 +2,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.tools import BaseTool
 from crewai_tools import (
-    FileReadTool
+    FileReadTool,
 )
 from tools.custom_tool import HerKeyJobAPITool,HerKeyLearningAPITool
 
@@ -89,7 +89,7 @@ class Ashaai():
         return Task(
             config=self.tasks_config['job_search_task'],
             tools=[HerKeyJobAPITool()],
-            context={ "skills": "skills", "location": "location" }
+            context={ "skills": "skills", "location": "location" },
             output_file='report.md'
         )
     @task
