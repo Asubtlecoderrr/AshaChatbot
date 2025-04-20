@@ -1,0 +1,14 @@
+recommend_learning_task:
+  description: >
+    Based on the user query : {user_query} and background and identified skill gaps or aspirations if any.
+    suggest personalized learning resources, including courses, articles, events, and online communities 
+    for women in career transition or growth based on their career roadmap.
+
+  expected_output: >
+    A list of:
+      - curated courses/tutorials related to the user query or goals.
+      - relevant communities or peer groups if any otherwise dont include
+      - Totally Optional if not available: upcoming events or webinars 
+    Include link and short description for each.
+
+  agent: learning_advisor

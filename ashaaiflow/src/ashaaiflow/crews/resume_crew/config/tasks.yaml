@@ -1,0 +1,15 @@
+resume_analysis_task:
+  description: >
+    Analyze the user's resume details and extract key skills, strengths, gaps, and areas for improvement.
+    Provide tailored suggestions for improvement, including format, keywords, and content alignment
+    with desired job roles and their career aspirations and stage.
+    
+  expected_output: >
+    A summary of the resume analysis, including:
+      - key strengths
+      - improvement areas
+      - suggestions to improve the resume.
+      - formatting tips
+    All formatted in markdown.
+
+  agent: resume_analyst

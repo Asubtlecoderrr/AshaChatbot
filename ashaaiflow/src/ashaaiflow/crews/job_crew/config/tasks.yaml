@@ -1,0 +1,29 @@
+job_search_task:
+  description: >
+    This is the users profile skills : {skills} , location : {location} 
+    query external job APIs or platforms and return a curated list of relevant job opportunities for women.
+
+  expected_output: >
+    A list of job opportunities with:
+      - Job title
+      - Company name
+      - Location (remote/on-site)
+      - Link to apply
+      - Short description
+    in very concise and conversational format.
+    The list should be tailored to the user's profile and preferences.
+
+  agent: job_search_agent
+
+# info_collector_task:
+#   description: >
+#     Collect and store user information such as skills, experience, and location.
+#     If anything is missing, ask the user and store the answer.
+
+#   expected_output: >
+#     Question the user to collect following in one go:
+#       - skills
+#       - years of experience
+#       - preferred job location
+
+#   agent: info_collector_agent

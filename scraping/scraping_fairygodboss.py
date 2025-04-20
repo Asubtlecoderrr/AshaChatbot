@@ -48,7 +48,7 @@ for idx, article_url in enumerate(article_links, start=1):
         content = "Content not found."
 
     # Save the content to a text file
-    filename = f"../knowledgeBase/{title.replace(' ', '_')}.txt"
+    filename = f"../ashaai/knowledge/{title.replace(' ', '_')}.txt"
     with open(filename, "w", encoding="utf-8") as file:
         file.write(f"{title}\n\n{content}")
 

@@ -20,7 +20,7 @@ urls = [
 
 
 
-output_directory = "knowledgeBase"
+output_directory = "ashaai/knowledge"
 
 def scrape_url(url):
     try:
