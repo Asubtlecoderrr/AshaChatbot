@@ -1,6 +1,6 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from ...tools.custom_tool import HerKeyLearningAPITool
+from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -15,6 +15,8 @@ class LearningCrew():
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
+    
+    yt_learning_tool = YTLearningTool(topic="Python", cohort="Restarter")
 
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
@@ -23,7 +25,7 @@ class LearningCrew():
         return Agent(
             config=self.agents_config['learning_advisor'],
             verbose=True,
-            tools=[HerKeyLearningAPITool()]
+            tools=[HerKeyLearningAPITool(),self.yt_learning_tool]
         )
 
     # To learn more about structured task outputs,

@@ -1,95 +1,14 @@
-Data Scientist at Ericsson (Bangalore)
-['hybrid']
+I found these Python developer jobs in Bangalore:
 
-Data Scientist at Dsights (Bangalore)
-['work_from_office']
+* **Senior Software Engineer - Python - Backend Developer:** Warner Bros. Discovery.  5-8 years experience.  Requires experience with RESTful APIs, Single Page Applications, AWS, SQL, and Agile methodologies. [Application URL](https://careers.wbd.com/global/en/job/R000091204/Senior-Software-Engineer-Python-Backend-Developer-Bangalore?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Python Developer:** S&P Global. 1-2 years experience. Requires strong Python skills, experience with SQL databases, and RESTful Web Services.  [Application URL](https://www.efinancialcareers.com/jobs-India-Bangalore-Python_Developer.id22699081?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Developer - Python:** Wipro Limited.  Experience requirements not specified.  Requires Python expertise, familiarity with Django/Flask, and front-end technologies. [Application URL](https://careers.wipro.com/job/Bengaluru-Developer-Python-560035/1139975355/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Python ReactJS:** LTIMindtree. 5+ years experience. Requires ReactJS and Python backend development skills. [Application URL](https://in.linkedin.com/jobs/view/python-reactjs-5-8-years-bangalore-at-ltimindtree-4211579425?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Associate Programmer Analyst - Python Full Stack:** Boeing. 5+ years experience. Requires Python full-stack development, experience with SQL databases, and ALM tools.  [Application URL](https://jobs.boeing.com/job/bengaluru/associate-programmer-analyst-python-full-stack/185/80106740096?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Python Developer (Python + Fast API):** NeerInfo Solutions. 4-7 years experience. Requires Python, FastAPI, cloud experience, SQL, and RESTful APIs.  [Application URL](https://in.linkedin.com/jobs/view/python-developer-python-%2B-fast-api-4-7-yfs-at-neerinfo-solutions-4212757688?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Python Developer:** Quest Global. 5-8 years experience. Requires C, Assembly, and Python programming skills, experience with Linux and various tools. [Application URL](https://careers.quest-global.com/global/en/job/P-107220/Python-Developer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Software Engineer (Python, Java, Golang):** NetApp. 6 years experience. Requires strong Python or NodeJS skills, experience with microservices architecture, and databases. [Application URL](https://careers.netapp.com/job/bengaluru/software-engineer-python-java-golang/27600/75626847792?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Senior Software Engineer - Python:** athenahealth. Experience requirements not specified. Requires strong analytical skills, experience in Python (or similar languages), and application performance troubleshooting. [Application URL](https://careers.athenahealth.com/us/en/job/R12324/Senior-Software-Engineer-Python?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+* **Python/Pyspark:** Tata Consultancy Services. 4-6 years experience. Requires Python (Flask or FastAPI), RESTful APIs, SQL and NoSQL databases, and debugging skills. [Application URL](https://in.linkedin.com/jobs/view/python-pyspark-at-tata-consultancy-services-4209700279?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
 
-DevSecOps Engineer at Ericsson (Bangalore)
-['hybrid']
-
-Technical Staff, Software Engineering at Dell (Bangalore)
-['work_from_office']
-
-Senior Principal Software Engineer at Dell (Bangalore)
-['work_from_office']
-
-Cybersecurity Penetration Tester for Reboot at HP Inc (Bangalore)
-['work_from_office']
-
-Senior Search Specialist at HerKey (Bangalore)
-['hybrid']
-
-Senior AI or ML Engineer – GenAI, Python at Optum (Bangalore)
-['work_from_office']
-
-Senior Principal Software Engineer at HerKey (Bangalore)
-['work_from_office']
-
-Technical Staff, Software Engineering at HerKey (Bangalore)
-['work_from_office']
-
-Python Developer - AWS at Renous Consulting (Bangalore)
-['work_from_office']
-
-Python Developer at Radome Technologies and services pvt ltd (Bangalore)
-['work_from_office']
-
-Senior Associate Data Analytics L1 at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Systems Lead_Service Management at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Junior Backend Engineer at HerKey (Bangalore)
-['hybrid']
-
-Coding teacher (Part time) at Codingal (Bangalore)
-['work_from_home']
-
-PLM Technical Lead - Teamcenter at Tata Technologies (Bangalore)
-['work_from_office']
-
-Senior Associate Data Analytics L2 at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Data Scientist - Kubernets with Python at Ericsson (Bangalore)
-['hybrid']
-
-Software Development Engineer at Peepal Consulting (Bangalore)
-['work_from_office']
-
-Applied Scientist at Amazon (Bangalore)
-['work_from_office']
-
-Senior Associate L2 - DS-AI & Machine Learning at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Senior Associate Data Engineering L2 DE - Big Data Azure at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Manager Data Analytics at Publicis Sapient (Bangalore)
-['work_from_office']
-
-PLM Technical Lead - 3DX at Tata Technologies (Bangalore)
-['work_from_office']
-
-Systems Engineer – Intune at MOODY'S (Bangalore)
-['work_from_office']
-
-Senior Associate L1 DE-Big Data Azure at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Manager Data Engineering DE - Big Data AWS at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Senior Associate Technology L2 - Python Developer at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Senior Associate Data Engineering L2 DE - Big Data GCP at Publicis Sapient (Bangalore)
-['work_from_office']
-
-Performance Engineering - Senior Associate L1 at Publicis Sapient (Bangalore)
-['work_from_office']
-
-AEP SAL1 at Publicis Sapient (Bangalore)
-['work_from_office']
+Please note: Experience and skill requirements are approximate and based on my interpretation of job descriptions.  Always check the original job posting for complete details.

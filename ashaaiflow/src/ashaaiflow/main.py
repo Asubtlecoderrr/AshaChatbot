@@ -15,9 +15,9 @@ class CareerState(BaseModel):
     intent: str = None
     skills: str = "python"
     location: str = "Bangalore"
-    response: str = "I am sorry I cannot help you with that."
+    response: str = "I am sorry I cannot help you with that. You can go ahead and ask me anything related to career guidance."
     user_id: int = 1
-    user_query : str = "Can you help me find software engineer job?"
+    user_query : str = "sure, should I share my resume with you?"
 
 class CareerGuidanceFlow(Flow[CareerState]):
     @start()
@@ -50,17 +50,20 @@ class CareerGuidanceFlow(Flow[CareerState]):
         
         intent_classification_task = Task(
             description=f"""Classify the user's message {self.state.user_query} into one of the following intents: 
-                        "guidance", "resume_analysis", "job_search", "recommend_learning", "motivation".
+                        "resume_analysis", "job_search", "recommend_learning", "motivation","guidance".
                         if query is not related to career guidance and other intents mentioned above, it is "out_of_scope".
+                        If query is related to stereotypes in women career, classify it as "stereotype".
                         This helps the system understand the purpose of the user's request.""",
-            expected_output="A single string value: guidance | resume_analysis | job_search | recommend_learning | motivation | out_of_scope",
+            expected_output="A single string value:  resume_analysis | job_search | recommend_learning | guidance | motivation | out_of_scope | stereotype | communities",
             agent=intent_agent
         )
         
         cohort_classification_task = Task(
             description=f"""Classify the user into one of the following cohorts based on the information they've shared:
                         "Starter" (just launching a career), "Restarter" (returning after a gap), 
-                        or "Riser" (already employed and seeking a roadmap forward).""",
+                        or "Riser" (already employed and seeking a roadmap forward).
+                        This is the current user_query: {self.state.user_query}""",
+                        
             expected_output="A single string value: Starter | Restarter | Riser",
             agent=cohort_agent
         )
@@ -86,7 +89,32 @@ class CareerGuidanceFlow(Flow[CareerState]):
     def route_by_category(self, intent):
         # Route to different handlers based on category
         return intent.lower()
+
     
+    @listen("stereotype")
+    def handle_stereotype(self, _):
+        from crewai import LLM
+        llm = LLM(model="gemini/gemini-1.5-flash",temperature=0.2, max_tokens=2000)
+
+        prompt = f"""
+            You are good at handling stereotypes and biases questions. 
+            This is a user_query **{self.state.user_query}** related to stereotypes.
+            You need to curate a response that discards the stereotype and provides a positive and encouraging response.
+            Respond by:
+            - Gently correcting the misconception without using terms like 'harmful', 'dangerous', 'toxic', or 'inaccurate'.
+            - Focusing on positive encouragement and real examples of women succeeding.
+            - Keeping your tone warm, motivational, and free from judgmental or confrontational language.
+            - Framing the response as an uplifting perspective shift rather than a rebuttal.
+
+            End goal: Empower the user, reinforce self-belief, and inspire action. Focus on next steps and keep it free of bias or assumptions
+        """
+
+        response = llm.call(prompt)
+        self.state.response = response
+        return "Handled stereotype query."
+
+
+
     @listen(or_("guidance", "motivation"))
     def provide_guidance(self, _):
         
@@ -141,6 +169,7 @@ class CareerGuidanceFlow(Flow[CareerState]):
     def recommend_learning_func(self, _):
         inputs = {
             "user_query": self.state.user_query,
+            "cohort": self.state.cohort
         }
         result = LearningCrew().crew().kickoff(inputs=inputs)
         self.state.response = result.raw
@@ -154,19 +183,20 @@ class CareerGuidanceFlow(Flow[CareerState]):
     @listen("optimize")
     def optimize_response(self, _):
         from crewai import LLM
-        llm = LLM(model="gemini/gemini-1.5-flash",temperature=0.2, max_tokens=3000)
+        llm = LLM(model="gemini/gemini-1.5-flash",temperature=0.2, max_tokens=4000)
 
         prompt = f"""
         You are a career assistant helping women with personalized career guidance.
 
         The user has expressed interest in **{self.state.intent}**. the current user query was **{self.state.user_query}**.
-        The response curated by different crews is **{self.state.response}**. 
-        Rephrase the response and if it contains links for resources, strictly do not remove them you need to add links to the response.
+        The response curated by other agent is **{self.state.response}**. 
+        Rephrase the response and if it contains links of any kind, strictly do not remove them you need to add links to the response.
+        
         If by any chance, the response provided by other agents was not able to answer the user's query or some error occured, 
         you should address the user's query directly and ensure the response is encouraging and empathetic
-
+    
         Strictly restrict mentioniong your limitations or apologizing for not being able to help.
-        Your response tone should be friendly and encouraging, focus on next steps and keep it free of bias or assumptions
+        Your response tone should be friendly and encouraging, focus on next steps and keep it free of bias or assumptions. Dont greet all the time.
         """
 
         response = llm.call(prompt)

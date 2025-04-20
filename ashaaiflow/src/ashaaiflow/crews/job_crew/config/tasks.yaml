@@ -4,12 +4,14 @@ job_search_task:
     query external job APIs or platforms and return a curated list of relevant job opportunities for women.
 
   expected_output: >
-    A list of job opportunities with:
-      - Job title
+    Return all relevant jobs in a list format with the following details:
+      - Job title and description
       - Company name
       - Location (remote/on-site)
-      - Link to apply
-      - Short description
+      - Application URL - important
+      - years of experience required
+      - skills required
+      
     in very concise and conversational format.
     The list should be tailored to the user's profile and preferences.
 

@@ -2,9 +2,11 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import (
     FileReadTool,
+    PDFSearchTool
 )
 import os
 import glob
+from ...tools.custom_tool import ResumeReaderTool
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -20,27 +22,16 @@ class ResumeCrew():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     
-    user_id=1
-    folder_path = f"../../../knowledge/{user_id}/"
-    file_patterns = ["*.pdf", "*.doc", "*.docx"]
-    resume_file = None
-    for pattern in file_patterns:
-        files = glob.glob(os.path.join(folder_path, pattern))
-        if files:
-            resume_file = files[0]  # Take the first match
-            break
-
-    if resume_file:
-        resume_reader_tool = FileReadTool(file_path=resume_file)
-
+    
+    
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
     def resume_analyst(self) -> Agent:
         return Agent(
-            config=self.agents_config['researcher'],
+            config=self.agents_config['resume_analyst'],
             verbose=True,
-            tools=[self.resume_reader_tool]
+            tools=[ResumeReaderTool()]
         )
         
     # To learn more about structured task outputs,
@@ -49,7 +40,7 @@ class ResumeCrew():
     @task
     def resume_analysis_task(self) -> Task:
         return Task(
-            config=self.tasks_config['research_task'],
+            config=self.tasks_config['resume_analysis_task'],
             output_file='ResumeCrewreport.mc'
         )
 

@@ -4,6 +4,9 @@ from crewai.memory import LongTermMemory
 from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
 from crewai.knowledge.source.crew_docling_source import CrewDoclingSource
 from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from crewai_tools import (
+    FileReadTool
+)
 import os
 
 # If you want to run a snippet of code before or after the crew starts,
@@ -19,22 +22,19 @@ class ConversationalCrew():
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    user_id = 1
+    user_id = "user1"
     
     # content_source = CrewDoclingSource(
-    #     file_paths=["../knowledge/*"] 
+    #     file_paths=[f"../src/ashaaiflow/knowledge/knowledgeBase/*"], 
     # )
 
-    file_path = f'../../knowledge/{user_id}/context.txt'
-
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as f:
-            content= f.read()
-    else:
-        content = ""
-    print(f"Content: {content}")
-        
-    context_knowledge_source = StringKnowledgeSource(content=content,collection_name="context")
+    file_path = f'src/ashaaiflow/knowledge/{user_id}/context.txt'
+ 
+    context_tool = FileReadTool(
+        file_path=file_path,
+        collection_name="context",
+        description="This is the context of the user. It contains the user's previous interactions and preferences."
+    )
 
     
     # If you would like to add tools to your agents, you can learn more about it here:
@@ -44,6 +44,7 @@ class ConversationalCrew():
         return Agent(
             config=self.agents_config['conversational_agent'],
             verbose=True,
+            tools=[self.context_tool]
         )
 
     # To learn more about structured task outputs,
@@ -68,6 +69,6 @@ class ConversationalCrew():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
-            knowledge_sources=[self.context_knowledge_source],
+            # knowledge_sources=[self.content_source],
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
