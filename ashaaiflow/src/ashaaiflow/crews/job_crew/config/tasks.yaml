@@ -1,6 +1,7 @@
 job_search_task:
   description: >
-    This is the users profile skills : {skills} , location : {location} 
+    This is the users profile skills : {skills} , location : {location} and if in user query {user_query} company is given
+    then use it to filter the jobs.
     query external job APIs or platforms and return a curated list of relevant job opportunities for women.
 
   expected_output: >

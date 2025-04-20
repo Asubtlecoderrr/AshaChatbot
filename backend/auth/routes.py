@@ -4,12 +4,12 @@ from sqlmodel import Session, select
 from passlib.context import CryptContext
 
 from ..database.models import User, get_session
-from backend.auth.utils import create_access_token
+from .utils import create_access_token
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
 
-# Request bodies
+# Request bodies for login and registration
 class RegisterRequest(BaseModel):
     name: str
     email: EmailStr
@@ -19,7 +19,7 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
-# Response schema for register
+# Response schema for registration
 class RegisterResponse(BaseModel):
     id: int
     name: str
@@ -31,6 +31,8 @@ class LoginResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
 
+
+# Registration endpoint (for user sign up)
 @router.post(
     "/register",
     response_model=RegisterResponse,
@@ -55,6 +57,7 @@ def register(req: RegisterRequest, session: Session = Depends(get_session)):
         "message": "Registration successful—please log in.",
     }
 
+# Login endpoint (for obtaining JWT token)
 @router.post("/login", response_model=LoginResponse)
 def login(req: LoginRequest, session: Session = Depends(get_session)):
     user = session.exec(select(User).where(User.email == req.email)).first()
@@ -64,6 +67,6 @@ def login(req: LoginRequest, session: Session = Depends(get_session)):
             detail="Invalid email or password",
         )
 
-    # Issue JWT only on login
+    # Issue JWT token
     token = create_access_token(data={"sub": user.email})
     return {"access_token": token}

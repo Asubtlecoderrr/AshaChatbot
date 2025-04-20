@@ -7,17 +7,23 @@ from .crews.conversational_crew.conversational_crew import ConversationalCrew
 from .crews.job_crew.job_crew import JobCrew
 from .crews.learning_crew.learning_crew import LearningCrew
 from .crews.resume_crew.resume_crew import ResumeCrew
+from .crews.community_crew.community_crew import CommunityCrew
 from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from crewai import LLM
+llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
 
 class CareerState(BaseModel):
     cohort: str = None
     intent: str = None
     skills: str = "python"
     location: str = "Bangalore"
-    response: str = "I am sorry I cannot help you with that. You can go ahead and ask me anything related to career guidance."
-    user_id: int = 1
-    user_query : str = "sure, should I share my resume with you?"
+    response: str = """I am sorry I cannot help you with that. I'm here to support you on your career journey! 
+                        You can ask me anything related to career guidance — whether you need help analyzing your resume, 
+                        finding jobs that match your skills, getting learning recommendations, or even just some motivation or direction. 
+                        I can also guide you through community suggestions, or have open conversations to keep things moving forward."""
+    user_id: int = None
+    user_query : str = "Can you help me find communities related to Women enterpreneurs?"
 
 class CareerGuidanceFlow(Flow[CareerState]):
     @start()
@@ -29,14 +35,15 @@ class CareerGuidanceFlow(Flow[CareerState]):
                 content = file.read()
         else:
             content = "No context available."
-            
+        print("###################################",content,"##########################################")
         context_knowledge_source = StringKnowledgeSource(content=content,collection_name="context")
         
         intent_agent = Agent(
             role="Intent Classifier",
             goal="Classify the user's intent based on their input and history",
             backstory="You are an expert in understanding user intent and can classify it accurately.",
-            verbose=True
+            verbose=True,
+            llm=llm
         )
         
         cohort_agent = Agent(
@@ -45,7 +52,8 @@ class CareerGuidanceFlow(Flow[CareerState]):
                         "Starter" (just launching a career), "Restarter" (returning after a gap), 
                         or "Riser" (already employed and seeking a roadmap forward).""",
             backstory="You are the intelligent classifier who understands career stages and can classify the user into one of the three cohorts.",
-            verbose=True
+            verbose=True,
+            llm=llm
         )
         
         intent_classification_task = Task(
@@ -53,8 +61,9 @@ class CareerGuidanceFlow(Flow[CareerState]):
                         "resume_analysis", "job_search", "recommend_learning", "motivation","guidance".
                         if query is not related to career guidance and other intents mentioned above, it is "out_of_scope".
                         If query is related to stereotypes in women career, classify it as "stereotype".
+                        If you think query is related to previous conversation which is indeed continuing the conversation, classify it as "conversation_continues".
                         This helps the system understand the purpose of the user's request.""",
-            expected_output="A single string value:  resume_analysis | job_search | recommend_learning | guidance | motivation | out_of_scope | stereotype | communities",
+            expected_output="A single string value:  conversation_continues | resume_analysis | job_search | recommend_learning | guidance | motivation | out_of_scope | stereotype | communities",
             agent=intent_agent
         )
         
@@ -115,7 +124,7 @@ class CareerGuidanceFlow(Flow[CareerState]):
 
 
 
-    @listen(or_("guidance", "motivation"))
+    @listen(or_("guidance", "motivation","conversation_continues"))
     def provide_guidance(self, _):
         
         inputs = {
@@ -154,7 +163,8 @@ class CareerGuidanceFlow(Flow[CareerState]):
     def job_search_func(self, _):        
         inputs = {
             "skills": self.state.skills,
-            "location": self.state.location
+            "location": self.state.location,
+            "user_query" : self.state.user_query
         }
         result = JobCrew().crew().kickoff(inputs=inputs)
         self.state.response = result.raw
@@ -173,11 +183,27 @@ class CareerGuidanceFlow(Flow[CareerState]):
         }
         result = LearningCrew().crew().kickoff(inputs=inputs)
         self.state.response = result.raw
-        print("By Advisor",result.raw)
         return "optimize"
     
     @router(recommend_learning_func)
     def after_recommend_learning(self, result):
+        return result 
+    
+    @listen("communities")
+    def communities_func(self, _):
+        inputs = {
+            "user_query": self.state.user_query,
+            "cohort": self.state.cohort,
+            "skills": self.state.skills,
+            "location": self.state.location
+        }
+        result = CommunityCrew().crew().kickoff(inputs=inputs)
+        self.state.response = result.raw
+        print(result.raw)
+        return "optimize"
+    
+    @router(communities_func)
+    def communities_router_func(self, result):
         return result 
     
     @listen("optimize")
@@ -190,9 +216,10 @@ class CareerGuidanceFlow(Flow[CareerState]):
 
         The user has expressed interest in **{self.state.intent}**. the current user query was **{self.state.user_query}**.
         The response curated by other agent is **{self.state.response}**. 
-        Rephrase the response and if it contains links of any kind, strictly do not remove them you need to add links to the response.
+        Rephrase the response in more engaging conversation with all information in response and 
+        if it contains links of any kind, strictly do not remove them you need to add links to the response.
         
-        If by any chance, the response provided by other agents was not able to answer the user's query or some error occured, 
+        If by any chance, I repeat only if the response provided by other agents was not able to answer the user's query or some error occured, 
         you should address the user's query directly and ensure the response is encouraging and empathetic
     
         Strictly restrict mentioniong your limitations or apologizing for not being able to help.

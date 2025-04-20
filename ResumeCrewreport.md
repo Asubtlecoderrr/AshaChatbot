@@ -1,0 +1,1 @@
+I cannot complete the analysis without the resume content. Please provide the resume.

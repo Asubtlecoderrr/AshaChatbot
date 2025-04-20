@@ -1,60 +1,64 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai.memory import LongTermMemory
-from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
-from crewai.knowledge.source.crew_docling_source import CrewDoclingSource
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from ...tools.custom_tool import contextTool
-import os
-from crewai import LLM
-llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.5)
-
+from ...tools.custom_tool import CommunitySearchTool
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
+from crewai import LLM
+llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2) 
+
 @CrewBase
-class ConversationalCrew():
-    """ConversationalCrew crew"""
+class CommunityCrew():
+    """CommunityCrew crew"""
 
     # Learn more about YAML configuration files here:
     # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    user_id = "user1"
+
     
-    context_tool = contextTool(user_id=user_id)
-    
-    # content_source = CrewDoclingSource(
-    #     file_paths=[f"../src/ashaaiflow/knowledge/knowledgeBase/*"], 
-    # )
     
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
+    
     @agent
-    def conversational_agent(self) -> Agent:
+    def keyword_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['conversational_agent'],
+            config=self.agents_config['keyword_agent'],
             verbose=True,
-            tools=[self.context_tool],
+            llm=llm
+        )
+    
+    @agent
+    def community_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['community_agent'],
+            verbose=True,
             llm=llm
         )
 
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
-
+    
     @task
-    def conversational_task(self) -> Task:
+    def keyword_task(self) -> Task:
         return Task(
-            config=self.tasks_config['conversational_task'],
-            output_file='ConversationalCrewreport.md',
+            config=self.tasks_config['keyword_task'],
+        )
+    
+    @task
+    def community_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['community_task'],
+            tools=[CommunitySearchTool(topic=self.keyword_task)],
         )
 
     @crew
     def crew(self) -> Crew:
-        """Creates the ConversationalCrew crew"""
+        """Creates the CommunityCrew crew"""
         # To learn how to add knowledge sources to your crew, check out the documentation:
         # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 
@@ -63,6 +67,5 @@ class ConversationalCrew():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
-            # knowledge_sources=[self.content_source],
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )

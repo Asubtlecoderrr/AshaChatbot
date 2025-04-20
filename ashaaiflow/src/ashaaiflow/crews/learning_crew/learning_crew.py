@@ -1,6 +1,8 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool
+from crewai import LLM
+llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -25,7 +27,8 @@ class LearningCrew():
         return Agent(
             config=self.agents_config['learning_advisor'],
             verbose=True,
-            tools=[HerKeyLearningAPITool(),self.yt_learning_tool]
+            tools=[HerKeyLearningAPITool(),self.yt_learning_tool],
+            llm=llm,
         )
 
     # To learn more about structured task outputs,

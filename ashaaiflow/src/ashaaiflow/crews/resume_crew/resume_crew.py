@@ -7,6 +7,8 @@ from crewai_tools import (
 import os
 import glob
 from ...tools.custom_tool import ResumeReaderTool
+from crewai import LLM
+llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -31,7 +33,8 @@ class ResumeCrew():
         return Agent(
             config=self.agents_config['resume_analyst'],
             verbose=True,
-            tools=[ResumeReaderTool()]
+            tools=[ResumeReaderTool(user_id=3)],
+            llm=llm,
         )
         
     # To learn more about structured task outputs,
@@ -41,7 +44,7 @@ class ResumeCrew():
     def resume_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['resume_analysis_task'],
-            output_file='ResumeCrewreport.mc'
+            output_file='ResumeCrewreport.md'
         )
 
 

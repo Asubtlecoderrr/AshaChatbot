@@ -1,0 +1,16 @@
+keyword_task:
+  description: >
+    Find relevant keyword based on the {user_query}
+    This could include keyword related to the user's career stage, skills, and location and topics for community engagement.
+  expected_output: >
+    A single keyword that will help search for relevant communities.
+  agent: keyword_agent
+
+community_task:
+  description: >
+    Provide a list of recommended communities based on the woman's career stage : {cohort}, skills: {skills}, location: {location}.
+    This could include professional groups, forums, local meetups, and online communities."vant information given
+  expected_output: >
+    A list with top 10 relevant communities, including their names, links, and a brief description of each community.
+  agent: community_agent
+ 

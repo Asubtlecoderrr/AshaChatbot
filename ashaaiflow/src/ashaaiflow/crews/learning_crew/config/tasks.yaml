@@ -9,6 +9,6 @@ recommend_learning_task:
     A list of:
       - curated courses/tutorials related to the user query or goals.
       - Totally Optional if not available: upcoming events or webinars 
-    Include link (Dont include same link twice) and short description for each.
+    
 
   agent: learning_advisor

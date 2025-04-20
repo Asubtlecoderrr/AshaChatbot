@@ -2,7 +2,8 @@
 conversational_task:
   description: >
     This is the {user_query} and the user is a {cohort} cohort and the user is looking for a {intent}.
-    Have a thoughtful, motivating, and context-aware conversation with the user based on the intent and cohort classification.
+    if intent is conversation_continues which means you need to continue the conversation with the user using the context_tool.
+    Have a thoughtful, motivating, and context-aware conversation with the user.
     Ask about their career goals, past experience, and current challenges and their aspirations.
     Encourage them using stories of successful women in similar situations.
     Ask if they are interested in learning about job opportunities and learning resources.
@@ -17,5 +18,3 @@ conversational_task:
   Target audience: Women in their career journey
 
   agent: conversational_agent
-  context:
-    - context_source

@@ -6,6 +6,10 @@ import requests
 import fitz 
 import glob
 import os
+from crewai_tools import (
+    FileReadTool,
+)
+
 
 class HerKeyJobAPIToolInput(BaseModel):
     """Input schema for HerKeyJobAPITool."""
@@ -43,7 +47,7 @@ class HerKeyJobAPITool(BaseTool):
         if skills:
             skill_lst = skills.split(",")
             print(skill_lst)
-            params["job_skills"] = skill_lst
+            params["job_skills"] = skills
         if location:
             params["location_name"] = location
         
@@ -168,7 +172,6 @@ class JobAPITool(BaseTool):
                     "location": location_name,
                     "description": description,
                     "url": apply_url,
-                    "apply_url": apply_url,
                     "date_posted": date_posted,
                     "platform": job_platform,
                     "job_type": job_type,
@@ -239,8 +242,6 @@ class YTLearningTool(BaseTool):
                 for item in data.get("video_results", [])[:count]:
                     results.append({
                         "title": item.get("title", "No title"),
-                        "channel": item.get("channel", {}).get("name", "Unknown channel"),
-                        "duration": item.get("length", "N/A"),
                         "link": item.get("link", ""),
                         "description": item.get("description", ""),
                         "is_course_search_result": True
@@ -252,14 +253,21 @@ class YTLearningTool(BaseTool):
                 print(f"SerpAPI YouTube course search error: {e}")
                 return []
 
+class ResumeReaderInput(BaseModel):
+    """Input schema for ResumeReaderTool."""
+
+    user_id: Optional[str] = Field(
+        None, description="User ID to fetch resume."
+    )
+
 class ResumeReaderTool(BaseTool):
     name: str = "Resume Reader"
     description: str = (
         "Read resumes from local directory."
     )
         
-    def _run(self) -> str:
-        user_id = "user1"
+    def _run(self, user_id:str) -> str:
+        
         folder_path = f"src/ashaaiflow/knowledge/{user_id}/"
         file_patterns = ["*.pdf", "*.doc", "*.docx"]
         resume_file = None
@@ -283,3 +291,77 @@ class ResumeReaderTool(BaseTool):
             return f"Error reading resume: {str(e)}"
 
         return text
+
+
+class contextInput(BaseModel):
+    """Input schema for contextModel."""
+
+    user_id: Optional[str] = Field(
+        None, description="User ID to fetch context."
+    )
+
+class contextTool(BaseTool):
+    name: str = "Context Sharing"
+    description: str = (
+      "Context of conversation between user and AI"
+    )
+    args_schema: Type[BaseModel] = contextInput
+    
+    def _run(self, user_id: str) -> str:
+        file_path = f'src/ashaaiflow/knowledge/{user_id}/context.txt'
+ 
+        context_tool = FileReadTool(
+            file_path=file_path,
+            collection_name="context",
+            description="This is the context of the user. It contains the user's previous interactions and preferences."
+        )
+        
+        return context_tool
+
+class CommunityInput(BaseModel):
+    
+    topic: str = Field(
+        "women", description="Topic to search for communities about."
+    )
+
+class CommunitySearchTool(BaseTool):
+    name: str = "Community Search"
+    description: str = (
+        "Search for communities related to a specific topic."
+    )
+    args_schema: Type[BaseModel] = CommunityInput
+    
+    def _run(self, topic: str) -> str:
+        SERPAPI_KEY = "3237d985f10df42f6e578b99a5966ff84131358dae814931afd18373384e28a9"
+        url = "https://serpapi.com/search"
+
+        # Search query to find online communities (forums, groups, etc.)
+        search_query = f"{topic} community OR forum OR group"
+
+        params = {
+            "engine": "google",
+            "q": search_query,
+            "api_key": SERPAPI_KEY,
+            "num": 10,
+        }
+
+        response = requests.get(url, params=params, verify=False)
+        data = response.json()
+
+        # Define community platforms to filter
+        community_platforms = ['linkedin.com', 'facebook.com', 'slack.com', 'telegram.org', 'discord.com', 'reddit.com']
+
+        results = []
+        for item in data.get("organic_results", [])[:10]:
+            # Filter results that match community platforms
+            link = item.get("link", "")
+            if any(platform in link for platform in community_platforms):
+                community = {
+                    "title": item.get("title", "No title"),
+                    "description": item.get("snippet", ""),
+                    "link": link,
+                    "is_community_search_result": True
+                }
+                results.append(community)
+
+        return results
