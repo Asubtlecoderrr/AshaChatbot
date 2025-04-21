@@ -1,5 +1,5 @@
 - Python for Beginners - Learn Coding with Python in 1 Hour: https://www.youtube.com/watch?v=kqtD5dpn9C8
 - Python Full Course for Beginners: https://www.youtube.com/watch?v=_uQrJ0TkZlc
+- Python Full Course for Beginners [2025]: https://www.youtube.com/watch?v=K5KVEU3aaeQ
 - 👩‍💻 Python for Beginners Tutorial: https://www.youtube.com/watch?v=b093aqAZiPU
-- Learn Python for FREE in 2025: https://www.youtube.com/watch?v=q2-pnQffZik
-- Python for Beginners – Full Course [Programming Tutorial]: https://www.youtube.com/watch?v=eWRfhZUzrAc
+- Python Tutorial for Beginners - Learn Python in 5 Hours [FULL COURSE]: https://www.youtube.com/watch?v=t8pPdKYpowI

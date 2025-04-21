@@ -4,7 +4,7 @@ from crewai.memory import LongTermMemory
 from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
 from crewai.knowledge.source.crew_docling_source import CrewDoclingSource
 from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from ...tools.custom_tool import contextTool
+from ...tools.custom_tool import get_context_tool
 import os
 from crewai import LLM
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.5)
@@ -22,9 +22,8 @@ class ConversationalCrew():
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    user_id = "user1"
     
-    context_tool = contextTool(user_id=user_id)
+    context_tool = get_context_tool()
     
     # content_source = CrewDoclingSource(
     #     file_paths=[f"../src/ashaaiflow/knowledge/knowledgeBase/*"], 
@@ -38,7 +37,8 @@ class ConversationalCrew():
             config=self.agents_config['conversational_agent'],
             verbose=True,
             tools=[self.context_tool],
-            llm=llm
+            llm=llm,
+            
         )
 
     # To learn more about structured task outputs,
@@ -63,6 +63,7 @@ class ConversationalCrew():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
+        
             # knowledge_sources=[self.content_source],
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )

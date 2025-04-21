@@ -23,13 +23,6 @@ class CommunityCrew():
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     
-    @agent
-    def keyword_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['keyword_agent'],
-            verbose=True,
-            llm=llm
-        )
     
     @agent
     def community_agent(self) -> Agent:
@@ -42,18 +35,13 @@ class CommunityCrew():
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
-    
-    @task
-    def keyword_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['keyword_task'],
-        )
+
     
     @task
     def community_task(self) -> Task:
         return Task(
             config=self.tasks_config['community_task'],
-            tools=[CommunitySearchTool(topic=self.keyword_task)],
+            tools=[CommunitySearchTool()],
         )
 
     @crew

@@ -1,24 +1,102 @@
-Here are some Python developer jobs in Bangalore that I found:
+Here's a list of relevant job opportunities, tailored to your profile:
 
-* **Senior Software Engineer- Python- Backend Developer- Bangalore** at WARNERMEDIA in Bengaluru, Karnataka, India.  Apply here: [https://careers.wbd.com/global/en/job/R000091204/Senior-Software-Engineer-Python-Backend-Developer-Bangalore?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.wbd.com/global/en/job/R000091204/Senior-Software-Engineer-Python-Backend-Developer-Bangalore?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)  Requires 5-8 years experience. Skills needed: Python, AWS, SQL, experience with event-driven architecture and SPAs.
+**1. Staff Software Engineer, Data Scientist Developer at Renesas:**
 
-* **Python Developer | Bangalore, IN** at S&P Global in Bengaluru, Karnataka, India. Apply here: [https://www.efinancialcareers.com/jobs-India-Bangalore-Python_Developer.id22699081?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://www.efinancialcareers.com/jobs-India-Bangalore-Python_Developer.id22699081?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 1-2 years experience. Skills needed: Python, AI, ML, data harvesting, data science, SQL, RESTful Web Services.
-
-* **Developer - Python** at Wipro Limited in Bengaluru, Karnataka, India. Apply here: [https://careers.wipro.com/job/Bengaluru-Developer-Python-560035/1139975355/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.wipro.com/job/Bengaluru-Developer-Python-560035/1139975355/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Experience requirements not specified in the job description. Skills needed: Python, Django, Flask, JavaScript, HTML5.
-
-* **Python ReactJS - (5-8 Years) - Bangalore** at LTIMindtree in Bengaluru, Karnataka, India. Apply here: [https://in.linkedin.com/jobs/view/python-reactjs-5-8-years-bangalore-at-ltimindtree-4211579425?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://in.linkedin.com/jobs/view/python-reactjs-5-8-years-bangalore-at-ltimindtree-4211579425?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 5+ years experience. Skills needed: Python, ReactJS.
-
-* **Associate Programmer Analyst - Python Full Stack** at Boeing in Bengaluru, Karnataka, India. Apply here: [https://jobs.boeing.com/job/bengaluru/associate-programmer-analyst-python-full-stack/185/80106740096?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://jobs.boeing.com/job/bengaluru/associate-programmer-analyst-python-full-stack/185/80106740096?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 5+ years experience. Skills needed: Python (full-stack), RESTful web services, SQL, Agile.
-
-* **Python Developer (Python + Fast API) | 4- 7 Yfs** at NeerInfo Solutions in Bengaluru, Karnataka, India. Apply here: [https://in.linkedin.com/jobs/view/python-developer-python-%2B-fast-api-4-7-yfs-at-neerinfo-solutions-4212757688?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://in.linkedin.com/jobs/view/python-developer-python-%2B-fast-api-4-7-yfs-at-neerinfo-solutions-4212757688?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 4-7 years experience. Skills needed: Python, FastAPI, Cloud experience, SQL, RESTful APIs (JavaScript a plus).
-
-* **Software Engineer (Python, Java, Golang)** at NetApp in Bengaluru, Karnataka, India. Apply here: [https://careers.netapp.com/job/bengaluru/software-engineer-python-java-golang/27600/75626847792?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.netapp.com/job/bengaluru/software-engineer-python-java-golang/27600/75626847792?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 6 years experience. Skills needed: Python, NodeJS, data structures, algorithms, microservices architecture, MySQL or MongoDB.
-
-* **Python/Pyspark** at Tata Consultancy Services in Bengaluru, Karnataka, India. Apply here: [https://in.linkedin.com/jobs/view/python-pyspark-at-tata-consultancy-services-4209700279?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://in.linkedin.com/jobs/view/python-pyspark-at-tata-consultancy-services-4209700279?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 4-6 years experience. Skills needed: Python (Flask or FastAPI), RESTful APIs, SQL, NoSQL databases (PostgreSQL and MongoDB).
-
-* **Python Developer** at Quest Global in Bengaluru, Karnataka, India. Apply here: [https://careers.quest-global.com/global/en/job/P-107220/Python-Developer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.quest-global.com/global/en/job/P-107220/Python-Developer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Requires 5-8 years experience. Skills needed: Python, C, Assembly, Linux (Ubuntu, Yocto), Eclipse, GSM/GPRS, FTP/SFTP, VPN, IP tables.
-
-* **Senior Software Engineer - Python** at Athenahealth in Bengaluru, Karnataka, India. Apply here: [https://careers.athenahealth.com/us/en/job/R12324/Senior-Software-Engineer-Python?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.athenahealth.com/us/en/job/R12324/Senior-Software-Engineer-Python?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic) Experience requirements not specified in the job description. Skills needed: Python, JavaScript, Perl, R, Java/Scala, C/C++, application performance measurement and troubleshooting.
+*   **Description:** Develop and maintain AI software for self-driving vehicles, leveraging cloud technologies.
+*   **Company:** Renesas
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://jobs.renesas.com/job/staff-software-engineer-data-scientist-developer-in-bengaluru-ka-india-jid-2977?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://jobs.renesas.com/job/staff-software-engineer-data-scientist-developer-in-bengaluru-ka-india-jid-2977?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 2+ years professional experience in software engineering and 2+ years experience deploying applications with machine learning frameworks.
+*   **Skills:** C/C++, Python, TensorFlow/Keras, PyTorch, Pandas, ONNX, Kubernetes, Docker.
 
 
-Please note that location is assumed to be on-site unless otherwise specified in the job description.  I did not have access to information about specific experience requirements beyond what was explicitly stated in the job descriptions.
+**2. Software Engineer - Data Scientist AI/ML at Juniper Networks:**
+
+*   **Description:** Develop AI/ML solutions to automate networking workflows.
+*   **Company:** Juniper Networks
+*   **Location:** Bangalore, India (On-site)
+*   **Apply:** [https://www.simplyhired.co.in/job/2Wh3CSoRmD-DnaPh_6-BYx1NsEXZWVRaYMpQYP2LI6R4StgjgWTnug?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://www.simplyhired.co.in/job/2Wh3CSoRmD-DnaPh_6-BYx1NsEXZWVRaYMpQYP2LI6R4StgjgWTnug?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 4+ years building data science-driven solutions.
+*   **Skills:** Python, Numpy, ScikitLearn, TensorFlow, AWS, Spark, Kafka.
+
+
+**3. Data Engineer at Thermo Fisher Scientific:**
+
+*   **Description:** Design, develop, and maintain scalable data pipelines.
+*   **Company:** Thermo Fisher Scientific
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://jobs.thermofisher.com/global/en/job/TFSCGLOBALR01309642EXTERNALENGLOBAL/Data-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://jobs.thermofisher.com/global/en/job/TFSCGLOBALR01309642EXTERNALENGLOBAL/Data-Engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** Proven experience as a Data Engineer.
+*   **Skills:** SQL, Python, data warehousing, AWS, Azure, Google Cloud.
+
+
+**4. Data Engineer / Scientist at Siemens:**
+
+*   **Description:** Build and maintain data infrastructure for AI/ML models; develop AI models and perform data analysis.
+*   **Company:** Siemens
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://talent500.com/jobs/siemens/data-engineer-scientist-bengaluru-T500_SM_453192?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://talent500.com/jobs/siemens/data-engineer-scientist-bengaluru-T500_SM_453192?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 3-5 years relevant experience.
+*   **Skills:** SQL, Python, Azure, AWS, Google Cloud, machine learning algorithms, NLP.
+
+
+**5. Big Data Engineer - P50 at Adobe:**
+
+*   **Description:** Build a data platform using big data processing and warehousing technologies.
+*   **Company:** Adobe
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://careers.adobe.com/us/en/job/R153247/Big-Data-Engineer-P50?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.adobe.com/us/en/job/R153247/Big-Data-Engineer-P50?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 8-12 years of experience as a server-side developer, with at least 4 years in Data Engineering.
+*   **Skills:** Java or Python, Delta Lake, Apache Hive, Apache Spark, AWS EMR.
+
+
+**6. Artificial Intelligence Engineer/Data Scientist - Generative AI at Starmark Software:**
+
+*   **Description:** Lead AI initiatives, design and implement AI solutions leveraging LLMs and generative AI.
+*   **Company:** Starmark Software
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://in.linkedin.com/jobs/view/starmark-software-artificial-intelligence-engineer-data-scientist-generative-ai-at-starmark-software-4159247558?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://in.linkedin.com/jobs/view/starmark-software-artificial-intelligence-engineer-data-scientist-generative-ai-at-starmark-software-4159247558?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** Minimum 5 years in Data Science and Machine Learning, 2-3 years people management or technical architecture experience.
+*   **Skills:** NLP, Generative AI, LLMs, MLOps.
+
+
+**7. Data Scientist/Machine Learning Engineer at Hitachi Careers:**
+
+*   **Description:** Design, train, and fine-tune machine learning models for information extraction.
+*   **Company:** Hitachi Careers
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://careers.hitachi.com/jobs/15769089-data-scientist-slash-machine-learning-engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.hitachi.com/jobs/15769089-data-scientist-slash-machine-learning-engineer?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 5-8 years experience in solving industry problems using statistical, traditional ML and AI methods.
+*   **Skills:** Python, Sklearn, TensorFlow, PyTorch, NLP libraries.
+
+
+**8. Sr. Data Scientist (AI/ML Engineer) at Simple Energy:**
+
+*   **Description:** Develop and implement machine learning models to analyze and predict vehicle performance, battery health, and customer behavior.
+*   **Company:** Simple Energy
+*   **Location:** Bangalore, India (On-site)
+*   **Apply:** [https://in.linkedin.com/jobs/view/sr-data-scientist-ai-ml-engineer-at-simple-energy-4208064325?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://in.linkedin.com/jobs/view/sr-data-scientist-ai-ml-engineer-at-simple-energy-4208064325?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 5-7 years of experience in data science or machine learning.
+*   **Skills:** Python, TensorFlow, Keras, PyTorch, scikit-learn, SQL, pandas, Apache Spark, Databricks, GCP, Vertex AI, BigQuery ML.
+
+
+**9. Principle Engineer - Data Analytics at RTX:**
+
+*   **Description:** Develop algorithms for engine performance condition monitoring; perform aero-thermodynamic cycle analysis.
+*   **Company:** RTX
+*   **Location:** Bengaluru, India (On-site)
+*   **Apply:** [https://careers.rtx.com/global/en/job/01762184/Principle-Engineer-Data-Analytics?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.rtx.com/global/en/job/01762184/Principle-Engineer-Data-Analytics?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 8-12 years of engineering experience in aviation.
+*   **Skills:** C/C++, Python, SQL, AWS Lambda, PowerBI, machine learning techniques.
+
+
+**10. Data Scientist, Staff at Lam Research Corporation:**
+
+*   **Description:** Lead design and development of GenAI-based applications.
+*   **Company:** Lam Research Corporation
+*   **Location:** Bengaluru, India (Hybrid)
+*   **Apply:** [https://careers.lamresearch.com/job/Bangalore-Data-Scientist%2C-Staff-IN-B/1267536800/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic](https://careers.lamresearch.com/job/Bangalore-Data-Scientist%2C-Staff-IN-B/1267536800/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+*   **Experience:** 10+ years of experience in software engineering, machine learning, data science, or artificial intelligence.
+*   **Skills:** Python, JavaScript/TypeScript, Svelte, Azure, Azure OpenAI, Azure AI Search, GenAI development tools.
+
+Please note that experience and skill requirements are summarized and may not be fully comprehensive.  Always refer to the job description for complete details.

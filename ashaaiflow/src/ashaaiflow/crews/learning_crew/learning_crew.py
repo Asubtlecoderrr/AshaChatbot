@@ -1,8 +1,9 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool
+from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool, get_context_tool
 from crewai import LLM
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
+from shared.user_context import cohort_var
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -18,7 +19,8 @@ class LearningCrew():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     
-    yt_learning_tool = YTLearningTool(topic="Python", cohort="Restarter")
+    yt_learning_tool = YTLearningTool(cohort=cohort_var.get())
+    context_tool = get_context_tool()
 
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
@@ -27,7 +29,7 @@ class LearningCrew():
         return Agent(
             config=self.agents_config['learning_advisor'],
             verbose=True,
-            tools=[HerKeyLearningAPITool(),self.yt_learning_tool],
+            tools=[HerKeyLearningAPITool(),self.yt_learning_tool,self.context_tool],
             llm=llm,
         )
 

@@ -33,7 +33,7 @@ class ResumeCrew():
         return Agent(
             config=self.agents_config['resume_analyst'],
             verbose=True,
-            tools=[ResumeReaderTool(user_id=3)],
+            tools=[ResumeReaderTool()],
             llm=llm,
         )
         

@@ -9,26 +9,17 @@ import os
 from crewai_tools import (
     FileReadTool,
 )
+from shared.user_context import user_id_var
 
 
-class HerKeyJobAPIToolInput(BaseModel):
-    """Input schema for HerKeyJobAPITool."""
-
-    skills: Optional[str] = Field(
-        None, description="Skills to filter job listings."
-    )
-    location: Optional[str] = Field(
-        None, description="Location to filter job listings."
-    )
-    
 class HerKeyJobAPITool(BaseTool):
     name: str = "herkey_job_api"
     description: str = (
        "Fetch job listings from HerKeys internal API."
     )
-    args_schema: Type[BaseModel] = HerKeyJobAPIToolInput
     
-    def _run(self, skills: Optional[str], location:Optional[str]) -> str:
+    def _run(self, skills: str, location: str) -> str:
+
         url = "https://api-prod.herkey.com/api/v1/herkey/jobs/es_candidate_jobs"
 
         headers = {
@@ -93,38 +84,39 @@ class HerKeyLearningAPITool(BaseTool):
         return sessions
 
 
-class JobAPIToolInput(BaseModel):
-    """Input schema for HerKeyJobAPITool."""
+# class JobAPIToolInput(BaseModel):
+#     """Input schema for HerKeyJobAPITool."""
 
-    keywords: Optional[str] = Field(
-        None, description="Skills to filter job listings."
-    )
-    location: Optional[str] = Field(
-        None, description="Location to filter job listings."
-    )
-    platform: Optional[str] = Field(
-        None, description="job platforms to search."
-    )
+#     keywords: Optional[str] = Field(
+#         None, description="keywords to filter job listings."
+#     )
+#     platform: Optional[str] = Field(
+#         None, description="job platforms to search."
+#     )
     
 class JobAPITool(BaseTool):
     name: str = "job_api"
     description: str = (
        "Fetch job listings from API."
     )
-    args_schema: Type[BaseModel] = JobAPIToolInput
+    # args_schema: Type[BaseModel] = JobAPIToolInput
         
-    def _run(self, keywords: Optional[str], location:Optional[str], platform: str) -> list:
+    def _run(self, keywords: str, location: Optional[str]) -> list:
         SERAPH_KEY = "3237d985f10df42f6e578b99a5966ff84131358dae814931afd18373384e28a9"  # Your Seraph API key for integrati
         count=10
         days_ago=7
+        platform="all"
         all_jobs = []
-
         try:
             # Base URL for SerpAPI Google Jobs
             url = "https://serpapi.com/search"
 
             # Prepare query parameters
-            query = f"{keywords} jobs in {location}"
+            if location:
+                query = f"{keywords} jobs in {location}"
+            else:
+                query = f"{keywords} jobs"
+                
             if platform.lower() != "all":
                 query += f" {platform}"
 
@@ -191,9 +183,6 @@ class JobAPITool(BaseTool):
 class YTLearningInput(BaseModel):
     """Input schema for HerKeyJobAPITool."""
 
-    topic: Optional[str] = Field(
-        None, description="Skills to filter job listings."
-    )
     cohort: Optional[str] = Field(
         None, description="Cohort to filter job listings."
     )
@@ -205,7 +194,7 @@ class YTLearningTool(BaseTool):
     )
     args_schema: Type[BaseModel] = YTLearningInput
         
-    def _run(self, topic: str, cohort: str) -> list:
+    def _run(self, keyword: str, cohort: str) -> list:
         SERPAPI_KEY = "3237d985f10df42f6e578b99a5966ff84131358dae814931afd18373384e28a9"
 
         LEVEL_KEYWORDS = {
@@ -220,13 +209,15 @@ class YTLearningTool(BaseTool):
             level = ["beginner"]
         elif cohort=="Restarter":
             level = ["beginner","intermediate"]
+        else:
+            level = ["beginner","intermediate","advanced"]
             
         for l in level:
             try:
                 url = "https://serpapi.com/search"
                 level_terms = LEVEL_KEYWORDS.get(l.lower(), [])
                 level_query = " OR ".join(level_terms)
-                query = f"{topic} ({level_query})"
+                query = f"{keyword} ({level_query})"
 
                 params = {
                     "engine": "youtube",
@@ -253,12 +244,6 @@ class YTLearningTool(BaseTool):
                 print(f"SerpAPI YouTube course search error: {e}")
                 return []
 
-class ResumeReaderInput(BaseModel):
-    """Input schema for ResumeReaderTool."""
-
-    user_id: Optional[str] = Field(
-        None, description="User ID to fetch resume."
-    )
 
 class ResumeReaderTool(BaseTool):
     name: str = "Resume Reader"
@@ -266,21 +251,22 @@ class ResumeReaderTool(BaseTool):
         "Read resumes from local directory."
     )
         
-    def _run(self, user_id:str) -> str:
-        
-        folder_path = f"src/ashaaiflow/knowledge/{user_id}/"
+    def _run(self) -> str:
+
+        user_id = user_id_var.get()
+        file_path = f'src/ashaaiflow/knowledge/{user_id}/'        
         file_patterns = ["*.pdf", "*.doc", "*.docx"]
         resume_file = None
 
         for pattern in file_patterns:
-            files = glob.glob(os.path.join(folder_path, pattern))
+            files = glob.glob(os.path.join(file_path, pattern))
             if files:
                 resume_file = files[0]  # Take the first match
                 break
-
+        resume_file = "ashaaiflow/src/ashaaiflow/knowledge/1/Vidhi Resume.pdf"
         if not resume_file:
             return "No resume file found."
-
+        
         text = ""
         try:
             with fitz.open(resume_file) as doc:
@@ -293,50 +279,31 @@ class ResumeReaderTool(BaseTool):
         return text
 
 
-class contextInput(BaseModel):
-    """Input schema for contextModel."""
-
-    user_id: Optional[str] = Field(
-        None, description="User ID to fetch context."
+def get_context_tool():
+    user_id = user_id_var.get()
+    file_path = f'src/ashaaiflow/knowledge/{user_id}/context.txt'
+    return FileReadTool(
+        file_path=file_path,
+        collection_name="context",
+        description="""This is the context of the conversation with the user. 
+        It contains the user's previous interactions and preferences which can be used to find insights like skills, location, etc.""",
     )
-
-class contextTool(BaseTool):
-    name: str = "Context Sharing"
-    description: str = (
-      "Context of conversation between user and AI"
-    )
-    args_schema: Type[BaseModel] = contextInput
-    
-    def _run(self, user_id: str) -> str:
-        file_path = f'src/ashaaiflow/knowledge/{user_id}/context.txt'
- 
-        context_tool = FileReadTool(
-            file_path=file_path,
-            collection_name="context",
-            description="This is the context of the user. It contains the user's previous interactions and preferences."
-        )
         
-        return context_tool
+         
 
-class CommunityInput(BaseModel):
-    
-    topic: str = Field(
-        "women", description="Topic to search for communities about."
-    )
 
 class CommunitySearchTool(BaseTool):
     name: str = "Community Search"
     description: str = (
-        "Search for communities related to a specific topic."
+        "Search for communities related to a specific keyword."
     )
-    args_schema: Type[BaseModel] = CommunityInput
     
-    def _run(self, topic: str) -> str:
+    def _run(self, keyword: str) -> str:
         SERPAPI_KEY = "3237d985f10df42f6e578b99a5966ff84131358dae814931afd18373384e28a9"
         url = "https://serpapi.com/search"
 
         # Search query to find online communities (forums, groups, etc.)
-        search_query = f"{topic} community OR forum OR group"
+        search_query = f"{keyword} community OR forum OR group"
 
         params = {
             "engine": "google",
@@ -365,3 +332,7 @@ class CommunitySearchTool(BaseTool):
                 results.append(community)
 
         return results
+    
+class skillsLocationResponse(BaseModel):
+    skills: str = Field(description="Skills of the user")
+    location: float = Field(description="location of the user")

@@ -3,6 +3,9 @@ job_search_task:
     This is the users profile skills : {skills} , location : {location} and if in user query {user_query} company is given
     then use it to filter the jobs.
     query external job APIs or platforms and return a curated list of relevant job opportunities for women.
+    
+    *Use can also use contextTool to fetch relevant skills and location user might be interested in
+    and  fetch jobs for them using JobAPITool and HerKeyJobAPITool*
 
   expected_output: >
     Return all relevant jobs in a list format with the following details:
@@ -18,15 +21,3 @@ job_search_task:
 
   agent: job_search_agent
 
-# info_collector_task:
-#   description: >
-#     Collect and store user information such as skills, experience, and location.
-#     If anything is missing, ask the user and store the answer.
-
-#   expected_output: >
-#     Question the user to collect following in one go:
-#       - skills
-#       - years of experience
-#       - preferred job location
-
-#   agent: info_collector_agent

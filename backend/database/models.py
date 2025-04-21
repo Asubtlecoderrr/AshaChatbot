@@ -1,5 +1,6 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field, create_engine, Session
+from sqlalchemy.orm import sessionmaker
 import os
 # 1) Engine
 here = os.path.dirname(os.path.abspath(__file__))
@@ -9,6 +10,7 @@ db_path = os.path.join(here, db_filename)
 # SQLite URL that points to `<same folder>/users.db`
 DATABASE_URL = f"sqlite:///{db_path}"
 engine = create_engine(DATABASE_URL, echo=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 2) Models
 class User(SQLModel, table=True):
@@ -34,3 +36,12 @@ def init_db():
 def get_session():
     with Session(engine) as session:
         yield session
+
+
+# Dependency to get DB session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
