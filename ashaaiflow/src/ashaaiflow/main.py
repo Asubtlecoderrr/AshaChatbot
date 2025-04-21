@@ -266,10 +266,10 @@ class CareerGuidanceFlow(Flow[CareerState]):
         If by any chance, I repeat only if the response provided by other agents was not able to answer the user's query or some error occured, 
         you should address the user's query directly and ensure the response is encouraging and empathetic
 
-        You can also use user_name to make it more personalized but **remember not to use it too much and make it sound creepy and forced.**
+        You can also use {self.state.user_name} to make it more personalized but **remember not to use it too much and make it sound creepy and forced.**
         
         Strictly restrict mentioniong your limitations or apologizing for not being able to help.
-        Your response tone should be friendly and encouraging, focus on next steps and keep it free of bias or assumptions. Dont greet all the time.
+        Your response tone should be friendly and encouraging, focus on next steps and keep it free of bias or assumptions. Dont greet.
         """
 
         response = llm.call(prompt)

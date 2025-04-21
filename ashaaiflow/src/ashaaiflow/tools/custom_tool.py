@@ -281,7 +281,7 @@ class ResumeReaderTool(BaseTool):
 
 def get_context_tool():
     user_id = user_id_var.get()
-    file_path = f'src/ashaaiflow/knowledge/{user_id}/context.txt'
+    file_path = f'/Users/I528635/Desktop/hackathon-ai/AshaChatbot/ashaaiflow/src/ashaaiflow/knowledge/{user_id}/context.txt'
     return FileReadTool(
         file_path=file_path,
         collection_name="context",

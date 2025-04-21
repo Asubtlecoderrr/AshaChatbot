@@ -3,21 +3,19 @@ job_search_task:
     This is the users profile skills : {skills} , location : {location} and if in user query {user_query} company is given
     then use it to filter the jobs.
     query external job APIs or platforms and return a curated list of relevant job opportunities for women.
-    
-    *Use can also use contextTool to fetch relevant skills and location user might be interested in
-    and  fetch jobs for them using JobAPITool and HerKeyJobAPITool*
+    If no keyword is in user_query then first call contextTool to fetch relevant skills and location user might be interested in before assuming
+    and then fetch jobs for them using JobAPITool and HerKeyJobAPITool*. 
+    The response should be tailored to the user's profile and preferences.
 
   expected_output: >
-    Return all relevant jobs in a list format with the following details:
+    Return top 5 most relevant jobs in a list format with the following details:
       - Job title and description
       - Company name
       - Location (remote/on-site)
       - Application URL - important
       - years of experience required
       - skills required
-      
     in very concise and conversational format.
-    The list should be tailored to the user's profile and preferences.
 
   agent: job_search_agent
 

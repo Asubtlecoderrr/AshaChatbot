@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // <-- import navigate hook
 import "../styles/style.css"; // Adjust the path if needed
 
 export default function Signup() {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate(); // <-- create navigate instance
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -11,7 +11,7 @@ export default function Signup() {
     e.preventDefault();
     try {
       // Change the URL to point to Flask backend (localhost:5000)
-      const res = await fetch("http://localhost:5000/register", {
+      const res = await fetch("http://localhost:8000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -40,9 +40,9 @@ export default function Signup() {
       <form className="form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         <input
-          name="username"
+          name="Name"
           type="text"
-          placeholder="Username"
+          placeholder="Name"
           onChange={handleChange}
           required
         />

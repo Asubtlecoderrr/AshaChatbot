@@ -22,15 +22,13 @@ class UserQueryRequest(BaseModel):
 @router.post("/run-flow")
 def run_flow(
     payload: UserQueryRequest, 
-    credentials: HTTPAuthorizationCredentials = Depends(http_bearer), 
-    current_user=Depends(get_current_user),
-    db: Session = Depends(get_db)
+    current_user=Depends(get_current_user)
 ):
     
     try:        
-        
-        user_name = db.exec(select(User.user_name).where(User.id == current_user.id)).first()
-        
+        print(f"Received query: {payload.user_query} user {current_user.id}")
+        user_name = current_user.name
+        print(f"User name: {user_name}")
         path = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}/context.txt"
         os.makedirs(os.path.dirname(path), exist_ok=True)
         
@@ -39,9 +37,9 @@ def run_flow(
         content_flow.state.user_query = payload.user_query
         content_flow.state.user_id = current_user.id
         content_flow.state.user_name = user_name
-            
+        print(f"User ID: {content_flow.state}")
         result = content_flow.kickoff()
-
+        print(f"Result: {result}")
         with open(path, "a+") as f:  # "a" mode = append
             f.write("User: "+ payload.user_query + "\n")
             f.write("AI: "+ content_flow.state.response + "\n")

@@ -13,7 +13,7 @@ export default function Login({ setUser }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/login", {
+      const res = await fetch("http://localhost:8000/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -23,6 +23,7 @@ export default function Login({ setUser }) {
 
       if (res.status === 200) {
         alert("Login successful!");
+        localStorage.setItem("token", data.access_token);
         setUser(true); // Update the user state here
         navigate("/layout"); // ✅ Redirect on success
       } else {
