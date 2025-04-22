@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend /app/backend
 
 # Copy the cashaaiflow directory (or any other dependent folder) into the container
-COPY cashaaiflow /app/ashaaiflow
+COPY ashaaiflow /app/ashaaiflow
 
 # Set environment variables if needed (e.g., for .env file)
 # You can optionally add the .env file or configure them here
