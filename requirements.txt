@@ -2,7 +2,6 @@ beautifulsoup4==4.13.4
 crewai==0.114.0
 crewai_tools==0.40.1
 fastapi==0.115.12
-fitz==0.0.1.dev2
 passlib==1.7.4
 pyautogui==0.9.54
 pydantic==2.11.3
