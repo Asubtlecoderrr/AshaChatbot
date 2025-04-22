@@ -7,6 +7,12 @@ WORKDIR /app
 # Copy the requirements.txt file to the container
 COPY requirements.txt .
 
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
+
+# Install pydantic[email] and all other dependencies from the requirements.txt file
+RUN pip install pydantic[email]
+
 # Install the dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
