@@ -5,8 +5,9 @@ fastapi==0.115.12
 fitz==0.0.1.dev2
 passlib==1.7.4
 pyautogui==0.9.54
-pydantic[email]==2.11.3
+pydantic==2.11.3
 PyJWT==2.10.1
 Requests==2.32.3
 SQLAlchemy==2.0.40
 sqlmodel==0.0.2
+email-validator==1.1.3
