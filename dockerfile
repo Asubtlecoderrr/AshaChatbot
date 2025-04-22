@@ -1,4 +1,3 @@
-# Dockerfile
 FROM python:3.11
 
 # Set the working directory inside the container to /app
@@ -19,11 +18,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire backend directory (which includes main.py and other folders) into /app/backend
 COPY backend /app/backend
 
-# Copy the cashaaiflow directory (or any other dependent folder) into the container
+# Copy the ashaaiflow directory (or any other dependent folder) into the container
 COPY ashaaiflow /app/ashaaiflow
 
-# Copy the cashaaiflow directory (or any other dependent folder) into the container
+# Copy the shared directory (or any other dependent folder) into the container
 COPY shared /app/shared
+
+# Copy the frontend directory into the container
+COPY frontend /app/frontend
 
 # Set environment variables if needed (e.g., for .env file)
 # You can optionally add the .env file or configure them here
