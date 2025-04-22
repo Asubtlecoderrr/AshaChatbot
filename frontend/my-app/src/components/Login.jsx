@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/style.css";
 
 export default function Login({ setUser }) {
@@ -18,14 +18,17 @@ export default function Login({ setUser }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
       const data = await res.json();
-
       if (res.status === 200) {
         alert("Login successful!");
+<<<<<<< Updated upstream
         localStorage.setItem("token", data.access_token);
         setUser(true); 
         navigate("/layout"); 
+=======
+        setUser(true);
+        navigate("/layout");
+>>>>>>> Stashed changes
       } else {
         alert(data.message || "Invalid credentials");
       }
@@ -35,31 +38,43 @@ export default function Login({ setUser }) {
   };
 
   return (
-  <div className="signup-container">
-      {/* Display the welcome message and image */}
-      <h1 style={{ color: 'purple', fontWeight: 'bold' }}>Hello , Welcome to Asha AI!</h1>
-      {/* Login section */}
-      <p style={{ fontSize: '16px', color: '#555' ,fontWeight: 'bold'}}>You are just one step away to experience Asha AI</p>
+<div className="container">
+  <div className="left">
+    <div className="content">
+      <h1 className="left-text">Welcome Back to ASHA AI</h1>
+      <p className="left-text">Please sign in to continue</p>
+      <form onSubmit={handleSubmit} className="form">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Sign In</button>
+      </form>
+      <p className="signup-link left-text">
+        Don’t have an account? <a href="/signup">Sign Up</a>
+      </p>
+    </div>
+  </div>
+  <div className="right">
+    <img
+      src="/images/girl.png"
+      alt="Login visual"
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+  </div>
+</div>
 
-
-    <form className="form" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="password"
-        type="password"
-        placeholder="Password"
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
-      </div>
   );
 }

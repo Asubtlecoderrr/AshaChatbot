@@ -34,15 +34,6 @@ function AppWrapper() {
           element={user ? <Layout /> : <Navigate to="/login" />}
         />
       </Routes>
-
-      {/* Only show this button if the user is not logged in */}
-      {!user && (
-        <button type="button" onClick={toggleForm}>
-          {isLogin
-            ? "Don't have an account? Signup"
-            : "Already have an account? Login"}
-        </button>
-      )}
     </div>
   );
 }
