@@ -1,0 +1,31 @@
+User: hi can you help me learn data science
+AI: That's fantastic, Vidhi!  Learning data science is a great goal.  Here's a curated selection of resources to get you started:
+
+**To kick things off, check out these YouTube courses:**
+
+* **For a comprehensive overview:** The Complete Data Science Roadmap: [https://www.youtube.com/watch?v=9R3X0JoCLyU](https://www.youtube.com/watch?v=9R3X0JoCLyU)
+* **Beginner-friendly introduction:** Learn Data Science Tutorial - Full Course for Beginners: [https://www.youtube.com/watch?v=ua-CiDNNj30](https://www.youtube.com/watch?v=ua-CiDNNj30)
+* **Quick overviews:**  There are several short introductory videos that might be helpful to get a feel for the field:
+    * What is Data Science? | Introduction to Data Science | Data Science for Beginners | Simplilearn: [https://www.youtube.com/watch?v=KxryzSO1Fjs](https://www.youtube.com/watch?v=KxryzSO1Fjs)
+    * Data Science In 5 Minutes | Data Science For Beginners | What Is Data Science? | Simplilearn: [https://www.youtube.com/watch?v=X3paOmcrTjQ](https://www.youtube.com/watch?v=X3paOmcrTjQ)
+    * What is Data Science?: [https://www.youtube.com/watch?v=RBSUwFGa6Fk](https://www.youtube.com/watch?v=RBSUwFGa6Fk)
+
+
+**And here are some upcoming events that might interest you (even if not directly data science-focused, they offer valuable skills and networking opportunities):**
+
+* **Deep dive into Data Science:** Data Science Unleashed: From Foundations to Future: [https://events.teams.microsoft.com/event/03e2b945-a329-4b6f-aa7a-cd9f2ebec04f@8d6ac083-306d-495b-bb46-f9e1ff5668f4](https://events.teams.microsoft.com/event/03e2b945-a329-4b6f-aa7a-cd9f2ebec04f@8d6ac083-306d-495b-bb46-f9e1ff5668f4) (April 23rd, 2025, 3:00 PM UTC)
+
+* **Other relevant sessions:**  These events cover leadership, communication, and other valuable skills for career advancement:
+    * Want to Be a Technical Writer?: [https://meet.google.com/vca-qjae-ftz](https://meet.google.com/vca-qjae-ftz) (April 23rd, 2025, 5:30 AM UTC)
+    * Leadership Styles & the Future of Leadership: [https://meet.google.com/dni-xhgu-kgt](https://meet.google.com/dni-xhgu-kgt) (April 23rd, 2025, 8:30 AM UTC)
+    * Disrupting Education: [https://meet.google.com/kvg-zrei-tcf](https://meet.google.com/kvg-zrei-tcf) (April 23rd, 2025, 10:30 AM UTC)
+    * Lead Like a Woman: [https://meet.google.com/fne-modr-scn](https://meet.google.com/fne-modr-scn) (April 24th, 2025, 5:30 AM UTC)
+    * The Role of Emotional Intelligence: [https://us02web.zoom.us/j/83161342184?pwd=bwISERZyUXGumjvsIfWmgSIOyR3sKg.1](https://us02web.zoom.us/j/83161342184?pwd=bwISERZyUXGumjvsIfWmgSIOyR3sKg.1) (April 24th, 2025, 5:30 AM UTC)
+    * Nervous in Interviews?: [https://meet.google.com/drf-rpgm-uzw](https://meet.google.com/drf-rpgm-uzw) (April 24th, 2025, 9:30 AM UTC)
+    * What women want?: [https://meet.google.com/fde-hcbs-zyu](https://meet.google.com/fde-hcbs-zyu) (April 24th, 2025, 1:00 PM UTC)
+    * AccelHERate Delhi 2025: [https://us02web.zoom.us/j/81541310782](https://us02web.zoom.us/j/81541310782) (April 25th, 2025, 4:30 AM UTC)
+    * Paroma Chatterjee: [https://meet.google.com/ayd-pivo-zik](https://meet.google.com/ayd-pivo-zik) (April 25th, 2025, 9:30 AM UTC)
+
+
+I recommend starting with one of the introductory YouTube videos to get a feel for the field, then diving into a more comprehensive course.  Let me know how it goes!  What are your next steps?
+
