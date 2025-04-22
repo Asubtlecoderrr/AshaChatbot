@@ -36,8 +36,8 @@ class ConversationalCrew():
         return Agent(
             config=self.agents_config['conversational_agent'],
             verbose=True,
-            tools=[self.context_tool],
             llm=llm,
+            tools=[self.context_tool],
             
         )
 
@@ -50,6 +50,7 @@ class ConversationalCrew():
         return Task(
             config=self.tasks_config['conversational_task'],
             output_file='ConversationalCrewreport.md',
+            tools=[self.context_tool],
         )
 
     @crew

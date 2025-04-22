@@ -29,6 +29,7 @@ class JobCrew():
             config=self.agents_config['job_search_agent'],
             verbose=True,
             llm=llm,
+            tools = [JobAPITool(),self.contextTool,self.herkey_job_tool]
         )
 
     # To learn more about structured task outputs,

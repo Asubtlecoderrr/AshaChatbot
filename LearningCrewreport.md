@@ -1,5 +1,5 @@
-- Python for Beginners - Learn Coding with Python in 1 Hour: https://www.youtube.com/watch?v=kqtD5dpn9C8
-- Python Full Course for Beginners: https://www.youtube.com/watch?v=_uQrJ0TkZlc
-- Python Full Course for Beginners [2025]: https://www.youtube.com/watch?v=K5KVEU3aaeQ
-- 👩‍💻 Python for Beginners Tutorial: https://www.youtube.com/watch?v=b093aqAZiPU
-- Python Tutorial for Beginners - Learn Python in 5 Hours [FULL COURSE]: https://www.youtube.com/watch?v=t8pPdKYpowI
+- The Complete Data Science Roadmap: https://www.youtube.com/watch?v=9R3X0JoCLyU
+- Learn Data Science Tutorial - Full Course for Beginners: https://www.youtube.com/watch?v=ua-CiDNNj30
+- What is Data Science? | Introduction to Data Science | Data Science for Beginners | Simplilearn: https://www.youtube.com/watch?v=KxryzSO1Fjs
+- Data Science In 5 Minutes | Data Science For Beginners | What Is Data Science? | Simplilearn: https://www.youtube.com/watch?v=X3paOmcrTjQ
+- What is Data Science?: https://www.youtube.com/watch?v=RBSUwFGa6Fk

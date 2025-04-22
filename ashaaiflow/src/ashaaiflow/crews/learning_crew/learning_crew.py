@@ -19,7 +19,7 @@ class LearningCrew():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     
-    yt_learning_tool = YTLearningTool(cohort=cohort_var.get())
+    yt_learning_tool = YTLearningTool()
     context_tool = get_context_tool()
 
     # If you would like to add tools to your agents, you can learn more about it here:

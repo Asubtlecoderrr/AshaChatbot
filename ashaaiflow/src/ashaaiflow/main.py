@@ -174,7 +174,8 @@ class CareerGuidanceFlow(Flow[CareerState]):
         inputs = {
             "user_query": self.state.user_query,
             "cohort": self.state.cohort,
-            "intent": self.state.intent
+            "intent": self.state.intent,
+            "user_name": self.state.user_name,
         }
         try:
             result = ConversationalCrew().crew().kickoff(inputs=inputs)

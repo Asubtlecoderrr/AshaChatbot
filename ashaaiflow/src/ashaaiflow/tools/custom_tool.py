@@ -180,21 +180,14 @@ class JobAPITool(BaseTool):
 
         return all_jobs
 
-class YTLearningInput(BaseModel):
-    """Input schema for HerKeyJobAPITool."""
 
-    cohort: Optional[str] = Field(
-        None, description="Cohort to filter job listings."
-    )
-    
 class YTLearningTool(BaseTool):
     name: str = "youtube courses"
     description: str = (
        "Fetch YT courses from API."
     )
-    args_schema: Type[BaseModel] = YTLearningInput
         
-    def _run(self, keyword: str, cohort: str) -> list:
+    def _run(self, cohort: str, keyword: str) -> list:
         SERPAPI_KEY = "3237d985f10df42f6e578b99a5966ff84131358dae814931afd18373384e28a9"
 
         LEVEL_KEYWORDS = {

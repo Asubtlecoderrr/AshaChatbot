@@ -24,8 +24,10 @@ export default function Login({ setUser }) {
       if (res.status === 200) {
         alert("Login successful!");
         localStorage.setItem("token", data.access_token);
-        setUser(true); // Update the user state here
-        navigate("/layout"); // ✅ Redirect on success
+        setUser(true); 
+        navigate("/layout"); 
+      } else if (localStorage.getItem("token")) {
+        navigate("/layout");
       } else {
         alert(data.message || "Invalid credentials");
       }

@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from pydantic import BaseModel
 from sqlmodel import Session, select
-from ..database.models import get_session, User, get_db
 from ..auth.utils import get_current_user, verify_access_token
 from ashaaiflow.src.ashaaiflow.main import CareerGuidanceFlow
 from ashaaiflow.src.ashaaiflow.crews.resume_crew.resume_crew import ResumeCrew
@@ -26,20 +25,20 @@ def run_flow(
 ):
     
     try:        
-        print(f"Received query: {payload.user_query} user {current_user.id}")
         user_name = current_user.name
-        print(f"User name: {user_name}")
         path = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}/context.txt"
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        
+        if not os.path.exists(path):
+            with open(path, "w") as f:
+                pass
+            
         user_id_var.set(current_user.id)
         content_flow = CareerGuidanceFlow()
         content_flow.state.user_query = payload.user_query
         content_flow.state.user_id = current_user.id
         content_flow.state.user_name = user_name
-        print(f"User ID: {content_flow.state}")
+        
         result = content_flow.kickoff()
-        print(f"Result: {result}")
         with open(path, "a+") as f:  # "a" mode = append
             f.write("User: "+ payload.user_query + "\n")
             f.write("AI: "+ content_flow.state.response + "\n")
@@ -51,7 +50,7 @@ def run_flow(
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/upload-resume")
-def upload_and_analyze_resume(file: UploadFile = File(...), credentials: HTTPAuthorizationCredentials = Depends(http_bearer), current_user=Depends(get_current_user)):
+def upload_and_analyze_resume(file: UploadFile = File(...), current_user=Depends(get_current_user)):
     if not file.filename.endswith((".pdf", ".docx", ".doc")):
         raise HTTPException(status_code=400, detail="Only .pdf, .docx, or .txt files allowed.")
 

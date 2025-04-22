@@ -1,10 +1,8 @@
 job_search_task:
   description: >
-    This is the users profile skills : {skills} , location : {location} and if in user query {user_query} company is given
-    then use it to filter the jobs.
-    query external job APIs or platforms and return a curated list of relevant job opportunities for women.
-    If no keyword is in user_query then first call contextTool to fetch relevant skills and location user might be interested in before assuming
-    and then fetch jobs for them using JobAPITool and HerKeyJobAPITool*. 
+    This is the users profile skills : {skills} , location : {location} (Remember skills and location could be empty.) 
+    so if in user query {user_query} company is given then use it to filter the jobs or use contextTool to fetch relevant skills, keywords and location user might be interested in.
+    Using JobAPIJobAPITool and herkey_job_tool query apis to fetch relevant job opportunities for women using those keywords and skills.
     The response should be tailored to the user's profile and preferences.
 
   expected_output: >

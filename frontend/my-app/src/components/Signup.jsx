@@ -40,7 +40,7 @@ export default function Signup() {
       <form className="form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         <input
-          name="Name"
+          name="name"
           type="text"
           placeholder="Name"
           onChange={handleChange}
