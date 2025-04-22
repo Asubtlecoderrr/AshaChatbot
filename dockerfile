@@ -16,6 +16,9 @@ COPY backend /app/backend
 # Copy the cashaaiflow directory (or any other dependent folder) into the container
 COPY ashaaiflow /app/ashaaiflow
 
+# Copy the cashaaiflow directory (or any other dependent folder) into the container
+COPY shared /app/shared
+
 # Set environment variables if needed (e.g., for .env file)
 # You can optionally add the .env file or configure them here
 
