@@ -1,0 +1,23 @@
+User: hi can you help me learn data science
+AI: That's fantastic, Vidhi!  Data science is a really exciting field.  Let's get you started on your learning journey.
+
+I've put together a learning path to help you get going, combining free online resources with some potentially relevant upcoming events.
+
+First, here are some excellent free YouTube courses to build your foundation:
+
+* **Get a comprehensive overview:**  "The Complete Data Science Roadmap" ([https://www.youtube.com/watch?v=9R3X0JoCLyU](https://www.youtube.com/watch?v=9R3X0JoCLyU)) is a great place to start. It's designed to guide you through the essentials over a year.
+* **Perfect for beginners:** "Learn Data Science Tutorial - Full Course for Beginners" ([https://www.youtube.com/watch?v=ua-CiDNNj30](https://www.youtube.com/watch?v=ua-CiDNNj30)) is a complete course tailored for those with no prior experience.
+* **Understand the basics:**  Check out "What is Data Science? | Introduction to Data Science | Data Science for Beginners | Simplilearn" ([https://www.youtube.com/watch?v=KxryzSO1Fjs](https://www.youtube.com/watch?v=KxryzSO1Fjs)) for a solid introduction.
+* **Quick overview:** If you prefer a shorter introduction, try "Data Science In 5 Minutes | Data Science For Beginners | What Is Data Science? | Simplilearn" ([https://www.youtube.com/watch?v=X3paOmcrTjQ](https://www.youtube.com/watch?v=X3paOmcrTjQ)).
+* **Another brief intro:**  "What is Data Science?" ([https://www.youtube.com/watch?v=RBSUwFGa6Fk](https://www.youtube.com/watch?v=RBSUwFGa6Fk)) offers a concise overview.
+
+
+Beyond these videos,  HerKey is hosting an event that *might* be relevant:
+
+* **"Data Science Unleashed: From Foundations to Future"**: This sounds promising!  Check out the details and register if it interests you: [https://events.teams.microsoft.com/event/03e2b945-a329-4b6f-aa7a-cd9f2ebec04f@8d6ac083-306d-495b-bb46-f9e1ff5668f4](https://events.teams.microsoft.com/event/03e2b945-a329-4b6f-aa7a-cd9f2ebec04f@8d6ac083-306d-495b-bb46-f9e1ff5668f4)  Remember to review the description carefully to ensure it aligns with your learning goals.
+
+
+Remember, consistency is key! Start with one resource, and gradually build your knowledge.  Let me know if you have any questions as you progress, or if you'd like help finding additional resources.  Good luck!
+
+User: thanks a lot man.
+AI: You're welcome, Vidhi Doshi!  It sounds like you're making progress. What's the next step you're considering in your career journey?  Knowing your goals will help me guide you better.  Remember, even small steps forward contribute to significant achievements.  Let's keep moving forward together!

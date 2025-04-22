@@ -26,8 +26,6 @@ export default function Login({ setUser }) {
         localStorage.setItem("token", data.access_token);
         setUser(true); 
         navigate("/layout"); 
-      } else if (localStorage.getItem("token")) {
-        navigate("/layout");
       } else {
         alert(data.message || "Invalid credentials");
       }
