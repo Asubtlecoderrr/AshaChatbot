@@ -10,8 +10,12 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< Updated upstream
       // Change the URL to point to Flask backend (localhost:5000)
       const res = await fetch("http://localhost:8000/auth/register", {
+=======
+      const res = await fetch("http://localhost:5000/register", {
+>>>>>>> Stashed changes
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -30,6 +34,10 @@ export default function Signup() {
     }
   };
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 return (
   <div className="container">
     <div className="right"> {/* Moved image to left */}
