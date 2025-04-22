@@ -13,7 +13,7 @@ from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSourc
 from crewai import LLM
 from crewai_tools import FileReadTool
 from .tools.custom_tool import skillsLocationResponse, get_context_tool
-from shared.user_context import cohort_var
+from shared.user_context import user_id_var
 
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
 
@@ -135,7 +135,8 @@ class CareerGuidanceFlow(Flow[CareerState]):
         self.state.intent = intent_classification_task.output.raw
         self.state.cohort = cohort_classification_task.output.raw if cohort_classification_task.output.raw in valid_cohorts else "Starter"
         print(f"Intent: {self.state.intent}, Cohort: {self.state.cohort}")
-        cohort_var.set(self.state.cohort)
+        user_id_var.set(self.state.user_id)
+        print(f"User ID: {user_id_var.get()}")
         return self.state.intent
 
     @router(finding_insights)

@@ -3,7 +3,6 @@ from crewai.project import CrewBase, agent, crew, task
 from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool, get_context_tool
 from crewai import LLM
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
-from shared.user_context import cohort_var
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
