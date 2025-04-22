@@ -21,14 +21,9 @@ export default function Login({ setUser }) {
       const data = await res.json();
       if (res.status === 200) {
         alert("Login successful!");
-<<<<<<< Updated upstream
-        localStorage.setItem("token", data.access_token);
-        setUser(true); 
-        navigate("/layout"); 
-=======
+        localStorage.setItem("token", data.access_token); //dont remove thissssss 
         setUser(true);
         navigate("/layout");
->>>>>>> Stashed changes
       } else {
         alert(data.message || "Invalid credentials");
       }

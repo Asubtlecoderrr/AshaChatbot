@@ -51,6 +51,7 @@ def register(req: RegisterRequest, session: Session = Depends(get_session)):
         raise HTTPException(status_code=400, detail="Email already registered")
 
     return {
+        "id": user.id,
         "name": user.name,
         "email": user.email,
         "message": "Registration successful—please log in.",
@@ -68,4 +69,4 @@ def login(req: LoginRequest, session: Session = Depends(get_session)):
 
     # Issue JWT token
     token = create_access_token(data={"sub": user.email})
-    return {"access_token": token,"name": user.name, "email": user.email}
+    return {"access_token": token}
