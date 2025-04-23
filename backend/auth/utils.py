@@ -9,10 +9,13 @@ from sqlmodel import Session, select
 from ..database.models import get_session
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from datetime import timezone
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-SECRET_KEY = "ashaai"  # Change this to a secret key
-ALGORITHM = "HS256"  # Use the HMAC SHA256 algorithm
-ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Token expiration time (30 minutes in this case)
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 
 # HTTPBearer is used to get the token from the request
 http_bearer = HTTPBearer()

@@ -20,7 +20,6 @@ export default function Login({ setUser }) {
       });
       const data = await res.json();
       if (res.status === 200) {
-        alert("Login successful!");
         localStorage.setItem("token", data.access_token); //dont remove thissssss 
         setUser(true);
         navigate("/layout");

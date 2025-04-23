@@ -3,10 +3,13 @@ import "../styles/Loader.css"; // Import the CSS file
 
 const Loader = () => {
   return (
-    <div className="dot-loader">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div className="loader-wrapper">
+      <span className="thinking-text">Thinking</span>
+      <div className="dot-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   );
 };

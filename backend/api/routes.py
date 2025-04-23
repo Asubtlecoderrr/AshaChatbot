@@ -8,12 +8,17 @@ import os
 import uuid
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from shared.user_context import user_id_var
+from cryptography.fernet import Fernet
+
+from dotenv import load_dotenv
+load_dotenv() 
 
 router = APIRouter()
 http_bearer = HTTPBearer()
 
+fernet_key = os.getenv("FERNET_KEY").encode()
+cipher = Fernet(fernet_key)
 
-# Request body expects only user_query
 class UserQueryRequest(BaseModel):
     user_query: str
 
@@ -26,22 +31,29 @@ def run_flow(
     
     try:        
         user_name = current_user.name
+        user_name = user_name.split(" ")[0] if user_name else user_name.split(" ")[1]
         path = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}/context.txt"
         os.makedirs(os.path.dirname(path), exist_ok=True)
         if not os.path.exists(path):
             with open(path, "w") as f:
-                pass
+                f.write("AI: " + """Hello! Welcome to ASHA AI 💜 You're in the perfect place to ask, learn, and grow — because YOU build tomorrow.  And it all starts with just one question !!""" + "\n")
             
         user_id_var.set(current_user.id)
+        print(user_id_var.get(),"####################################################")
         content_flow = CareerGuidanceFlow()
         content_flow.state.user_query = payload.user_query
         content_flow.state.user_id = current_user.id
         content_flow.state.user_name = user_name
         
         result = content_flow.kickoff()
+        user_text = "User: " + content_flow.state.user_query
+        ai_text = "AI: " + content_flow.state.response
+        encrypted_user = cipher.encrypt(user_text.encode()).decode()
+        encrypted_ai = cipher.encrypt(ai_text.encode()).decode()
+        
         with open(path, "a+") as f:  # "a" mode = append
-            f.write("User: "+ payload.user_query + "\n")
-            f.write("AI: "+ content_flow.state.response + "\n")
+            f.write(encrypted_user+ "\n")
+            f.write(encrypted_ai + "\n")
         
         print(content_flow.state.response)
         

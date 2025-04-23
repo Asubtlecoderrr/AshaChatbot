@@ -1,14 +1,39 @@
-Here are some data science jobs I found that might interest you:
+Here are five data science jobs in Bangalore that might be a good fit for you, keeping in mind your experience level and interest in machine learning and data science:  (Note:  Experience requirements are often not explicitly stated, so I've made my best estimate based on job descriptions and typical entry-level expectations.)
 
-1. **Data Scientist at Veritiv Corporation:**  This hybrid role in Sandy Springs, GA, requires 1-3 years of experience.  They're looking for someone knowledgeable in machine learning, deep learning, and NLP, proficient in statistical techniques, and experienced with Python or R.  [Apply Here](https://builtin.com/job/data-scientist/4721489?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+1. **Job Title:** Data Science Specialist
+   **Company:** GE Aerospace
+   **Location:** Bengaluru, Karnataka, India (Onsite)
+   **Application URL:** https://careers.geaerospace.com/global/en/job/R5003323/Data-Science-Specialist?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic
+   **Years of Experience Required:** 0-2 years (estimated)
+   **Skills Required:** Python, data cleansing, data quality assessment, applied analytics, descriptive statistics, predictive analytics, data visualization.
 
-2. **Data Scientist at Corps Team:** Located in Alpharetta, GA (remote or hybrid options), this role needs 5+ years of experience with a focus on machine learning and predictive modeling.  Proficiency in Python and SQL is a must.  [Apply Here](https://www.linkedin.com/jobs/view/data-scientist-local-to-ga-only-no-c2c-no-sponsorship-at-corps-team-4206859806?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+2. **Job Title:** Associate Data Scientist (1 - 1.5 yrs of experience in Python, Machine Learning)
+   **Company:** Visa
+   **Location:** Bengaluru, Karnataka, India (Hybrid)
+   **Application URL:** https://jobs.smartrecruiters.com/Visa/744000054489173-associate-data-scientist-1-1-5-yrs-of-experience-in-python-machine-learning-?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic
+   **Years of Experience Required:** 1-1.5 years
+   **Skills Required:** Python, R, SQL, machine learning, generative AI, MLOps, data visualization.
 
-3. **Senior Data Scientist - Machine Learning at Fiserv, Inc.:** This on-site position in Alpharetta, GA, requires 7+ years of experience with ML, NLP, and LLM models.  Proficiency in Python and experience with cloud platforms are essential. [Apply Here](https://www.indeed.com/viewjob?jk=80c333942b538b8c&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+3. **Job Title:** Data Scientist
+   **Company:** Dsights
+   **Location:** Bangalore (Onsite)
+   **Application URL:**  (Not provided in the API response)
+   **Years of Experience Required:** 3-8 years (This job may not be suitable for your experience level)
+   **Skills Required:** Data analytics, machine learning, Python, statistics, econometrics.
 
-4. **SFP - Data Scientist at Georgia State University:** Based in Atlanta, GA, this role requires a Bachelor's degree and five years of related experience.  The description emphasizes statistical analysis and data management skills. [Apply Here](https://jobs.chronicle.com/job/37814345/sfp-data-scientist/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+4. **Job Title:** Sr. Associate, People Analytics
+   **Company:** Alcon Laboratories India Pvt. Ltd.
+   **Location:** Bangalore (Work mode not specified)
+   **Application URL:** https://alcon.wd5.myworkdayjobs.com/en-US/careers_alcon/job/Bangalore-India/Sr-Associate--People-Analytics_R-2025-38246-1
+   **Years of Experience Required:** 0-5 years
+   **Skills Required:** Information systems, data engineering, emerging markets.
 
-5. **Sr. Data Scientist - Orange Apron Media at The Home Depot:** This Atlanta, GA based role requires 5+ years of experience and proficiency in Python, SQL, and data visualization tools.  Experience with prescriptive modeling (optimization, NLP, etc.) is preferred. [Apply Here](https://careers.homedepot.com/job/21858786/sr-data-scientist-orange-apron-media-atlanta-ga?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic)
+5. **Job Title:** Data and Reporting Programmer
+   **Company:** Alcon Laboratories India Pvt. Ltd.
+   **Location:** Bangalore (Work mode not specified)
+   **Application URL:** https://alcon.wd5.myworkdayjobs.com/en-US/careers_alcon/job/Bangalore-India/Data-and-Reporting-Programmer_R-2025-38267-2
+   **Years of Experience Required:** 0-5 years
+   **Skills Required:** Requirements analysis, data validation, data processing.
 
 
-Please note that I've only listed the top 5 jobs from the API response.  More jobs may be available depending on the API's current data.  The experience requirements and skills listed are based on my interpretation of the job descriptions and may not be completely exhaustive.  Always check the original job posting for the most accurate information.
+Remember to carefully review the full job description before applying to ensure it's a good fit for your skills and interests. Good luck with your job search!
