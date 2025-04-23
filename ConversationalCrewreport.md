@@ -1,1 +1,0 @@
-That's wonderful, Vidhi! I'm so glad the suggestions were helpful.  To keep the momentum going, let's focus on Coursera.  To help you get started, should we brainstorm some specific Coursera courses that might be a good fit for your goals, or would you like to explore the Coursera website on your own first and share some courses you've found?

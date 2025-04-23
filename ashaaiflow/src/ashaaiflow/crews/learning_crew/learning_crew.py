@@ -39,7 +39,6 @@ class LearningCrew():
     def recommend_learning_task(self) -> Task:
         return Task(
             config=self.tasks_config['recommend_learning_task'],
-            output_file="LearningCrewreport.md"
         )
 
     @crew

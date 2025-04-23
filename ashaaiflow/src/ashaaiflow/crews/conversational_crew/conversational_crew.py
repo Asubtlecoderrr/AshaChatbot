@@ -49,7 +49,6 @@ class ConversationalCrew():
     def conversational_task(self) -> Task:
         return Task(
             config=self.tasks_config['conversational_task'],
-            output_file='ConversationalCrewreport.md',
         )
 
     @crew

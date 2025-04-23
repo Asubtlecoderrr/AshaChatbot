@@ -44,7 +44,6 @@ class ResumeCrew():
     def resume_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['resume_analysis_task'],
-            output_file='ResumeCrewreport.md'
         )
 
 

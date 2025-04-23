@@ -1,1 +1,0 @@
-I'm ready to help you make your resume shine!  However, I need the actual resume content to analyze it. Please provide the text of your resume or upload it in a format I can process (like plain text or a common document format). Once I have that, I can give you specific feedback and suggestions tailored to your career goals.

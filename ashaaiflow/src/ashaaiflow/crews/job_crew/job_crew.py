@@ -40,7 +40,6 @@ class JobCrew():
     def job_search_task(self) -> Task:
         return Task(
             config=self.tasks_config['job_search_task'],
-            output_file='JobCrewReport.md',
         )
 
     @crew
