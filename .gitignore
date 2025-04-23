@@ -1,9 +1,10 @@
 venv/
 ashaaiflow/.venv/
 ashaaiflow/.env
-ashaaiflow/JobCrewReport.md 
-ashaaiflow/LearningCrewreport.md
-ashaaiflow/ResumeCrewreport.md
+JobCrewReport.md 
+LearningCrewreport.md
+ConversationalCrewreport.md
+ResumeCrewreport.md
 backend/__pycache__/
 backend/database/__pycache__/
 backend/.env
