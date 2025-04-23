@@ -8,7 +8,7 @@ recommend_learning_task:
   expected_output: >
     A list of:
       - curated courses/tutorials related to the user query or goals.
-      - Totally Optional if not available: upcoming events or webinars 
+      - Totally Optional Warning**(if not available do not mention mention in the response): upcoming events or webinars 
     
 
   agent: learning_advisor
