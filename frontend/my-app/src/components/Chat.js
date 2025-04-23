@@ -51,29 +51,26 @@ const Chat = () => {
     }, 100);
   }, [isSending, messages.length]);
 
-  const formatMessage = (message,className) => {
-    if (className === "user-message") {
-      let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: white;">$1</strong>');
-      const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
-      formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">$1</a>');
-      return `<span style="color: white;">${formatted}</span>`;
 
-    } else {
-      let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: black;">$1</strong>');
-      const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
-      formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: black; text-decoration: underline;">$1</a>');
-      return `<span style="color: black;">${formatted}</span>`;
+  const formatMessage = (message) => {
+    // Convert **text** to bold with white color
+    let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: white;">$1</strong>');
 
-    }
-    
+    // Convert URLs into clickable white links
+    const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
+    formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">$1</a>');
+
+    // Make sure all other text is white too
+    return `<span style="color: white;">${formatted}</span>`;
   };
 
 
-   const displayMessage = (message, className) => {
-    const formattedMessage = formatMessage(message,className);
-    setMessages((prevMessages) => [...prevMessages, { message: formattedMessage, className }]);
+    const displayMessage = (message, className) => {
+      const formattedMessage = formatMessage(message);
+      setMessages((prevMessages) => [...prevMessages, { message: formattedMessage, className, rating: 0 }]);
 
-  };
+
+    };
 
   return (
     <div className="chat-container">

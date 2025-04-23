@@ -19,7 +19,7 @@ const Navbar = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:8000/upload-file/", {
+      const response = await fetch("http://localhost:5000/upload-file/", {
         method: "POST",
         body: formData,
       });
@@ -55,23 +55,23 @@ const Navbar = () => {
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
           </div>
-          {showAlert && (
-            <Alert
-              variant="success"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                margin: '16px',
-                transform: 'translate(-50%, -50%)',
-                zIndex: 999,
-                backgroundColor: '#006BB8',
-                color: 'white'
-              }}
-            >
-              Your file has been uploaded successfully!
-            </Alert>
-          )}
+       {showAlert && (
+         <Alert
+           variant="success"
+           style={{
+             position: 'absolute',
+             top: '50%',
+             left: '50%',
+             margin: '16px',
+             transform: 'translate(-50%, -50%)',
+             zIndex: 999,
+             backgroundColor: '#6A0DAD', // Purple
+             color: 'white'
+           }}
+         >
+           Your file has been uploaded successfully!
+         </Alert>
+       )}
         </div>
       </nav>
     </div>
