@@ -317,7 +317,7 @@ class CareerGuidanceFlow(Flow[CareerState]):
 
             Rephrase the response in a more engaging conversation while keeping all the information intact. If the response includes links, strictly do not remove them—ensure they are retained and clearly shown.
 
-            make sure to include a sincere apology if the previous agent pointed out a mismatch or mistake.
+            Strictly only If the agents response did not solve users query, it should **apologize sincerely in a friendly, human way**, explain what went wrong, and immediately adjust its response to better match the users needs.
             
             If the response from the other agent didn’t answer the query or had an error, address the user’s query directly in an encouraging and empathetic way.
 
