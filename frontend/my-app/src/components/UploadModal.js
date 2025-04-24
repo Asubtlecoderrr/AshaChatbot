@@ -6,7 +6,7 @@ const Navbar = () => {
   const [uploading, setUploading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const fileInputRef = useRef();
-
+  const token = localStorage.getItem("token");
   const uploadDocument = (event) => {
     event.preventDefault();
     fileInputRef.current.click();
@@ -23,6 +23,7 @@ const Navbar = () => {
       try {
         const response = await fetch("http://104.197.6.224:8000/api/upload-resume/", {
           method: "POST",
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },
           body: formData,
         });
 
