@@ -18,7 +18,7 @@ const Chat = () => {
     setIsSending(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/run-flow', {
+      const response = await fetch('http://104.197.6.224:8000/api/run-flow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },
         body: JSON.stringify({ user_query: userMessageText }),

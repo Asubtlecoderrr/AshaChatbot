@@ -19,7 +19,7 @@ const Navbar = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:5000/upload-file/", {
+      const response = await fetch("http://104.197.6.224:8000/api/upload-resume/", {
         method: "POST",
         body: formData,
       });
