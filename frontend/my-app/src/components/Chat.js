@@ -20,7 +20,7 @@ const Chat = () => {
     try {
       const response = await fetch('http://104.197.6.224:8000/api/run-flow', {
         method: 'POST',
-        headers: {'Authorization': `Bearer ${token}`, },
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },
         body: JSON.stringify({ user_query: userMessageText }),
       });
 
