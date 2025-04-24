@@ -52,16 +52,21 @@ const Chat = () => {
   }, [isSending, messages.length]);
 
 
-  const formatMessage = (message) => {
-    // Convert **text** to bold with white color
-    let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: white;">$1</strong>');
+  const formatMessage = (message,className) => {
+    if (className === "user-message") {
+      let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: white;">$1</strong>');
+      const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
+      formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">$1</a>');
+      return `<span style="color: white;">${formatted}</span>`;
 
-    // Convert URLs into clickable white links
-    const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
-    formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">$1</a>');
+    } else {
+      let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: black;">$1</strong>');
+      const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
+      formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: black; text-decoration: underline;">$1</a>');
+      return `<span style="color: black;">${formatted}</span>`;
 
-    // Make sure all other text is white too
-    return `<span style="color: white;">${formatted}</span>`;
+    }
+    
   };
 
 
