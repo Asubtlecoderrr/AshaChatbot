@@ -4,7 +4,7 @@ from crewai.memory import LongTermMemory
 from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
 from crewai.knowledge.source.crew_docling_source import CrewDoclingSource
 from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from ...tools.custom_tool import get_context_tool
+from ...tools.custom_tool import ContextReaderTool
 import os
 from crewai import LLM
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.5)
@@ -23,7 +23,7 @@ class ConversationalCrew():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     
-    context_tool = get_context_tool()
+    context_tool = ContextReaderTool()
     
     # content_source = CrewDoclingSource(
     #     file_paths=[f"../src/ashaaiflow/knowledge/knowledgeBase/*"], 
@@ -49,8 +49,6 @@ class ConversationalCrew():
     def conversational_task(self) -> Task:
         return Task(
             config=self.tasks_config['conversational_task'],
-            output_file='ConversationalCrewreport.md',
-            tools=[self.context_tool],
         )
 
     @crew

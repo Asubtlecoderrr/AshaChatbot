@@ -1,18 +1,36 @@
-/* dot-loader.css */
+.loader-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: fit-content;
+  background-color: transparent;
+}
+
+.thinking-text {
+  font-style: italic;
+  color: #8e44ff;
+  font-size: 16px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
 
 .dot-loader {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 30px;
+  height: 12px; /* Ensures dots don’t collapse vertically */
 }
 
 .dot-loader div {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background: #8e44ff;
   border-radius: 50%;
-  display: inline-block;
   animation: dot-scale 1.4s infinite ease-in-out;
 }
 
@@ -26,7 +44,7 @@
 
 @keyframes dot-scale {
   0%, 100% {
-    transform: scale(0);
+    transform: scale(0.6); /* slightly visible at rest */
   }
   50% {
     transform: scale(1);

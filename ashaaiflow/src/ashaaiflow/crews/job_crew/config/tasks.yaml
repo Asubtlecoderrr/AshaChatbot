@@ -1,11 +1,22 @@
 job_search_task:
   description: >
-    This is the users profile skills : {skills} , location : {location} (Remember skills and location could be empty.) 
-    so if in user query {user_query} company is given then use it to filter the jobs or use contextTool to fetch relevant skills, keywords and location user might be interested in.
-    Using JobAPIJobAPITool and herkey_job_tool query apis to fetch relevant job opportunities for women using those keywords and skills.
+    This is the users profile skills : {skills} , location : {location} , cohort: {cohort} 
+    Lets map cohort to experience if experience is not explicitly mentioned in the user profile.
+    Cohort mapping:
+    -  Starter : 0-1 years of experience
+    -  Riser : 1-3 years of experience
+    -  Restarter : 0/3-5 years of experience
+    use contextTool to fetch relevant skills/keywords/interests and location user might be interested in 
+    and only look for users response and requests. 
+    Do not cosnider AI response from contextTool.
+    Only using JobAPIJobAPITool and herkey_job_tool query apis to fetch relevant job opportunities 
+    for women using above mentioned skills/keywords/interests and location and 
+    According to cohort filter out the jobs based on required experience. 
+
     The response should be tailored to the user's profile and preferences.
 
   expected_output: >
+    **Strictly follow the format below and return jobs**
     Return top 5 most relevant jobs in a list format with the following details:
       - Job title and description
       - Company name

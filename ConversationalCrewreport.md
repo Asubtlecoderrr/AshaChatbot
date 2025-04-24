@@ -1,1 +1,0 @@
-You're welcome, Vidhi Doshi!  It sounds like you're making progress. What's the next step you're considering in your career journey?  Knowing your goals will help me guide you better.  Remember, even small steps forward contribute to significant achievements.  Let's keep moving forward together!

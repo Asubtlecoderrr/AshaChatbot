@@ -1,6 +1,6 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool, get_context_tool
+from ...tools.custom_tool import HerKeyLearningAPITool,YTLearningTool, ContextReaderTool
 from crewai import LLM
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
 
@@ -19,7 +19,7 @@ class LearningCrew():
     tasks_config = 'config/tasks.yaml'
     
     yt_learning_tool = YTLearningTool()
-    context_tool = get_context_tool()
+    context_tool = ContextReaderTool()
 
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
@@ -39,7 +39,6 @@ class LearningCrew():
     def recommend_learning_task(self) -> Task:
         return Task(
             config=self.tasks_config['recommend_learning_task'],
-            output_file="LearningCrewreport.md"
         )
 
     @crew
