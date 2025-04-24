@@ -7,6 +7,7 @@ const Navbar = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const fileInputRef = useRef();
   const token = localStorage.getItem("token");
+  console.log(token);
   const uploadDocument = (event) => {
     event.preventDefault();
     fileInputRef.current.click();

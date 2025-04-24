@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import styles from "../styles/Navbar.module.css";
-import { Alert } from 'react-bootstrap'; // import Alert from Bootstrap
+import { Alert } from 'react-bootstrap';
 
-const Navbar = () => {
+const Navbar = ({ onBotMessage }) => {
   const [uploading, setUploading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const fileInputRef = useRef();
+  const token = localStorage.getItem("token");
 
   const uploadDocument = async (event) => {
     event.preventDefault();
@@ -13,25 +14,41 @@ const Navbar = () => {
   };
 
   const handleFileChange = async (event) => {
-    setUploading(true);  // set the uploading state as started
+    setUploading(true);
     const file = event.target.files[0];
     if (file && file.type === "application/pdf") {
       const formData = new FormData();
       formData.append("file", file);
+      onBotMessage?.("✅ Your resume has been uploaded successfully and is being analyzed!");
 
-      const response = await fetch("http://104.197.6.224:8000/api/upload-resume/", {
-        method: "POST",
-        body: formData,
-      });
-      if (response.ok) {
-        sessionStorage.setItem('fileName', file.name);
-        setUploading(false); // set the uploading state as finished
-        setShowAlert(true); // show the alert
-        setTimeout(() => setShowAlert(false), 3000); // close the alert after 4 seconds
+
+      try {
+        const response = await fetch("http://104.197.6.224:8000/api/upload-resume/", {
+          method: "POST",
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formData,
+        });
+
+        if (response.ok) {
+          sessionStorage.setItem('fileName', file.name);
+          setShowAlert(true);
+          const data = await response.json();
+          console.log(data);
+          const botResponse = data.result?.replace(/\n/g, "<br>") || "Sorry, I didn't understand that.";
+          onBotMessage?.(botResponse);
+          setTimeout(() => setShowAlert(false), 3000);
+        } else {
+          alert("Upload failed. Please try again.");
+        }
+      } catch (err) {
+        console.error("Upload error:", err);
+        alert("Something went wrong during upload.");
+      } finally {
+        setUploading(false);
       }
     } else {
       alert("Please select a valid PDF file!");
-      setUploading(false);  // set the uploading state as finished
+      setUploading(false);
     }
   };
 
@@ -55,23 +72,23 @@ const Navbar = () => {
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
           </div>
-       {showAlert && (
-         <Alert
-           variant="success"
-           style={{
-             position: 'absolute',
-             top: '50%',
-             left: '50%',
-             margin: '16px',
-             transform: 'translate(-50%, -50%)',
-             zIndex: 999,
-             backgroundColor: '#6A0DAD', // Purple
-             color: 'white'
-           }}
-         >
-           Your file has been uploaded successfully!
-         </Alert>
-       )}
+          {showAlert && (
+            <Alert
+              variant="success"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                margin: '16px',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 999,
+                backgroundColor: '#6A0DAD',
+                color: 'white'
+              }}
+            >
+              Resume Analysis Completed!
+            </Alert>
+          )}
         </div>
       </nav>
     </div>

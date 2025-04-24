@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import "../styles/Chat.css";
 import Loader from "./Loader";
 
-const Chat = () => {
+const Chat = forwardRef((props, ref) => {
   const welcomeMessage = "Hello! Welcome to ASHA AI 💜<br /><br />You're in the perfect place to ask, learn, and grow — because YOU build tomorrow.<br />And it all starts with just one question !!";
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessages] = useState([{ message: welcomeMessage, className: "bot-message" }]);
   const [isSending, setIsSending] = useState(false);
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
+
+  useImperativeHandle(ref, () => ({
+    addBotMessage: (message) => {
+      displayMessage(message, "bot-message");
+    }
+  }));
+
   const sendMessage = async () => {
     const userMessageText = userMessage.trim();
     if (!userMessageText) return;
@@ -20,7 +27,10 @@ const Chat = () => {
     try {
       const response = await fetch('http://104.197.6.224:8000/api/run-flow', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({ user_query: userMessageText }),
       });
 
@@ -51,31 +61,24 @@ const Chat = () => {
     }, 100);
   }, [isSending, messages.length]);
 
-
-  const formatMessage = (message,className) => {
+  const formatMessage = (message, className) => {
     if (className === "user-message") {
       let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: white;">$1</strong>');
       const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
       formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">$1</a>');
       return `<span style="color: white;">${formatted}</span>`;
-
     } else {
       let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong style="color: black;">$1</strong>');
       const urlRegex = /((https?:\/\/[^\s<]+[^<.,:;"')\]\s]))/g;
       formatted = formatted.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: black; text-decoration: underline;">$1</a>');
       return `<span style="color: black;">${formatted}</span>`;
-
     }
-    
   };
 
-
-    const displayMessage = (message, className) => {
-      const formattedMessage = formatMessage(message);
-      setMessages((prevMessages) => [...prevMessages, { message: formattedMessage, className, rating: 0 }]);
-
-
-    };
+  const displayMessage = (message, className) => {
+    const formattedMessage = formatMessage(message, className);
+    setMessages((prevMessages) => [...prevMessages, { message: formattedMessage, className, rating: 0 }]);
+  };
 
   return (
     <div className="chat-container">
@@ -104,6 +107,6 @@ const Chat = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Chat;
