@@ -83,9 +83,15 @@ def upload_and_analyze_resume(file: UploadFile = File(...), current_user=Depends
         resume_crew = ResumeCrew()
         result = resume_crew.crew().kickoff()
         
+        user_text = "User: Resume Uploaded" 
+        ai_text = "AI: " + result.raw
+        encrypted_user = cipher.encrypt(user_text.encode()).decode()
+        encrypted_ai = cipher.encrypt(ai_text.encode()).decode()
+        
         with open(path, "a+") as f:  # "a" mode = append
-            f.write("User: Analyze the resume" + "\n")
-            f.write("AI: "+ result.raw + "\n")
+            f.write(encrypted_user+ "\n")
+            f.write(encrypted_ai + "\n")
+            
         return {"result": result.raw}
         
     except Exception as e:
