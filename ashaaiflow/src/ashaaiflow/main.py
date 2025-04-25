@@ -82,6 +82,7 @@ class CareerGuidanceFlow(Flow[CareerState]):
                 This is the user's current message: "{self.state.user_query}"
 
                 Also consider what the last assistant message was asking, and assume the user wants to continue that flow if they replied vaguely.
+                If query is not related to career guidance, classify it as 'out_of_scope'.
 
                 Choose from these intents:
                 - gratitude
