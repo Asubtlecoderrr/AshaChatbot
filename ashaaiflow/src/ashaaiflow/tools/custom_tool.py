@@ -1,6 +1,6 @@
 from crewai.tools import BaseTool
 from typing import Type ,Dict, Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel, Field, StrictStr,model_validator
 import json
 import requests
 import fitz 
@@ -100,9 +100,17 @@ class HerKeyLearningAPITool(BaseTool):
         return sessions
 
 class JobAPIToolInput(BaseModel):
-    keywords: Dict = Field(..., description="Keyword/skill to search for jobs")
-    location: Optional[Dict] = Field(None, description="Location to search for jobs")
-    experience: Optional[Dict] = Field(None, description="Experience level to search for jobs")
+    keywords: str = Field(..., description="Keyword/skill to search for jobs")
+    location: str = Field(None, description="Location to search for jobs")
+    experience: str = Field(None, description="Experience level to search for jobs")
+    
+    @model_validator(mode='before')
+    def convert_to_string(cls, values):
+        for field in ['keywords', 'location', 'experience']:
+            if field in values and values[field] is not None:
+                values[field] = str(values[field])
+        return values
+
 
 class JobAPITool(BaseTool):
     name: str = "job_api"
@@ -111,14 +119,11 @@ class JobAPITool(BaseTool):
     )
     args_schema: Type[BaseModel] = JobAPIToolInput
         
-    def _run(self, keywords: dict, location: Optional[dict],experience: Optional[dict]) -> list:
+    def _run(self, keywords: str, location: str, experience: str) -> list:
         count=10
         days_ago=7
         platform="all"
         all_jobs = []
-        keywords = keywords["description"]
-        location = location["description"] if location else None
-        experience = experience["description"] if experience else None
         try:
             # Base URL for SerpAPI Google Jobs
             url = "https://serpapi.com/search"
@@ -195,8 +200,14 @@ class JobAPITool(BaseTool):
 
 class YTLearningToolSchema(BaseModel):
     
-    cohort : Dict = Field(..., description="cohort of the user")
-    keyword: Dict = Field(..., description="keyword/skills to search for courses")
+    cohort : str = Field(..., description="cohort of the user")
+    keyword: str = Field(..., description="keyword/skills to search for courses")
+    @model_validator(mode='before')
+    def convert_to_string(cls, values):
+        for field in ['keyword', 'cohort']:
+            if field in values and values[field] is not None:
+                values[field] = str(values[field])
+        return values
 
 class YTLearningTool(BaseTool):
     name: str = "youtube courses"
@@ -205,7 +216,7 @@ class YTLearningTool(BaseTool):
     )
     args_schema: Type[BaseModel] = YTLearningToolSchema
         
-    def _run(self, cohort: dict, keyword: dict) -> list:
+    def _run(self, cohort: str, keyword: str) -> list:
 
         LEVEL_KEYWORDS = {
             "beginner": ["introduction", "for beginners", "basics", "zero to hero"],
@@ -213,8 +224,6 @@ class YTLearningTool(BaseTool):
             "advanced": ["advanced", "deep dive", "expert level"]
         }
         
-        cohort = cohort["description"]
-        keyword = keyword["description"]
         count=5
         if cohort=="Riser":
             level = ["intermediate","advanced"]
@@ -324,7 +333,6 @@ class ContextReaderTool(BaseTool):
             return "No context file found for this user."
         except Exception as e:
             return f"Error reading or decrypting context file: {str(e)}"
-     
         
 class CommunitySearchToolInput(BaseModel):
     keyword: StrictStr = Field(..., description="Keyword to search for communities")
@@ -336,14 +344,12 @@ class CommunitySearchTool(BaseTool):
     )
     args_schema: Type[BaseModel] = CommunitySearchToolInput
     
-    def _run(self, keyword: str) -> str:
+    def _run(self, keyword: StrictStr) -> str:
         url = "https://serpapi.com/search"
 
         # Search query to find online communities (forums, groups, etc.)
         search_query = f"{keyword} community OR forum OR group"
-        if type(keyword) == dict:
-            keyword = keyword["description"]
-            
+
         params = {
             "engine": "google",
             "q": search_query,
