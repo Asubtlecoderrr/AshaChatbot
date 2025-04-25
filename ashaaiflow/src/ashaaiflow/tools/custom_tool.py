@@ -100,9 +100,9 @@ class HerKeyLearningAPITool(BaseTool):
         return sessions
 
 class JobAPIToolInput(BaseModel):
-    keywords: StrictStr = Field(..., description="Keyword/skill to search for jobs")
-    location: Optional[StrictStr] = Field(None, description="Location to search for jobs")
-    experience: Optional[StrictStr] = Field(None, description="Experience level to search for jobs")
+    keywords: Dict = Field(..., description="Keyword/skill to search for jobs")
+    location: Optional[Dict] = Field(None, description="Location to search for jobs")
+    experience: Optional[Dict] = Field(None, description="Experience level to search for jobs")
 
 class JobAPITool(BaseTool):
     name: str = "job_api"
@@ -111,11 +111,14 @@ class JobAPITool(BaseTool):
     )
     args_schema: Type[BaseModel] = JobAPIToolInput
         
-    def _run(self, keywords: str, location: Optional[str],experience: Optional[str]) -> list:
+    def _run(self, keywords: dict, location: Optional[dict],experience: Optional[dict]) -> list:
         count=10
         days_ago=7
         platform="all"
         all_jobs = []
+        keywords = keywords["description"]
+        location = location["description"] if location else None
+        experience = experience["description"] if experience else None
         try:
             # Base URL for SerpAPI Google Jobs
             url = "https://serpapi.com/search"
