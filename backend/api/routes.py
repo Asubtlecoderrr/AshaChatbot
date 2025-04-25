@@ -34,9 +34,12 @@ def run_flow(
         user_name = user_name.split(" ")[0] if user_name else user_name.split(" ")[1]
         path = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}/context.txt"
         os.makedirs(os.path.dirname(path), exist_ok=True)
+
         if not os.path.exists(path):
+            ai_text =  "AI: " + """Hello! Welcome to ASHA AI 💜 You're in the perfect place to ask, learn, and grow — because YOU build tomorrow.  And it all starts with just one question !!""" + "\n"
+            encrypted_ai = cipher.encrypt(ai_text.encode()).decode()
             with open(path, "w") as f:
-                f.write("AI: " + """Hello! Welcome to ASHA AI 💜 You're in the perfect place to ask, learn, and grow — because YOU build tomorrow.  And it all starts with just one question !!""" + "\n")
+                f.write(encrypted_ai + "\n")
             
         user_id_var.set(current_user.id)
         print(user_id_var.get(),"####################################################")

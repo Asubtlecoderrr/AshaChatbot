@@ -12,7 +12,7 @@ job_search_task:
     use contextTool to fetch relevant skills/keywords/interests and location user might be interested in 
     and only consider for users responds. 
     I repeat **do not cosnider AI response from contextTool.**
-    Only using JobAPIJobAPITool and herkey_job_tool query apis to fetch relevant job opportunities 
+    Use both tools - JobAPITool and herkey_job_tool to query apis to fetch relevant job opportunities 
     for women using above mentioned skills/keywords/interests and location and experience
     The response should be tailored to the user's profile and preferences.
 

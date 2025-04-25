@@ -324,6 +324,7 @@ class ContextReaderTool(BaseTool):
             return "No context file found for this user."
         except Exception as e:
             return f"Error reading or decrypting context file: {str(e)}"
+     
         
 class CommunitySearchToolInput(BaseModel):
     keyword: StrictStr = Field(..., description="Keyword to search for communities")
