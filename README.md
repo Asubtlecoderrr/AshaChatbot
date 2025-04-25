@@ -4,13 +4,13 @@ This guide will help you set up and deploy the Asha AI chatbot (FastAPI backend 
 
 ## 📦 Local Development   
 ### ✅ Frontend
-
-`cd frontend/my-app`
-`npm install`
+ 
+`cd frontend/my-app` <br>
+`npm install` <br>
 `npm run start`  
 ### ✅ Backend
 
-`pip install -r requirements.txt`
+`pip install -r requirements.txt` <br>
 `uvicorn backend.main:app`
 
 ## ☁️ GCP VM Deployment Using Docker  
@@ -20,7 +20,7 @@ Use the Google Cloud Console or gcloud CLI to SSH into your VM instance.
 
 ### ✅ Step 2: Navigate to the Project and Pull Latest Code
 
-`cd AshaChatbot`
+`cd AshaChatbot` <br>
 `git pull`  
 
 ### ✅ Step 3: Set Up Environment Variables
@@ -51,7 +51,7 @@ Add your required secrets: <br>
 
 ### ✅ Step 7: Navigate to Frontend Directory and Pull Code
 
-`cd frontend/my-app`
+`cd frontend/my-app` <br>
 `git pull`  
 
 ### ✅ Step 8: Build Docker Image (Frontend)
@@ -70,16 +70,16 @@ Go to **VPC Network > Firewall** in the GCP Console.
 
 ### Click Create Firewall Rule.
 
-Name: allow-http
-Targets: All instances in the network
-Source IP ranges: 0.0.0.0/0
-Protocols and ports: Check Specified protocols and ports, then allow:
-tcp:8000
-tcp:3000
+Name: allow-http <br>
+Targets: All instances in the network <br>
+Source IP ranges: 0.0.0.0/0 <br>
+Protocols and ports: Check Specified protocols and ports, then allow: <br>
+tcp:8000 <br>
+tcp:3000 <br>
 
 **Now you can access your app via:**
 
-`http://<your-external-vm-ip>:3000  # Frontend`
+`http://<your-external-vm-ip>:3000  # Frontend` <br>
 `http://<your-external-vm-ip>:8000  # Backend API`  
 
 ### ✅ Done!  
@@ -87,5 +87,26 @@ tcp:3000
 Your Asha AI Bot is now up and running on a GCP VM! 🎉
 Make sure to monitor logs and container health for smooth operation.
 
+# 🔄 Workflow Overview
+
+1. **User Interaction**:  
+   The user initiates a conversation with **Asha AI** via the frontend (React app). Asha listens to the user's query (e.g., job search, resume analysis, etc.).
+
+2. **Intent Classification**:  
+   Asha's **CrewAI-based agent** classifies the user's intent (e.g., job search, mentorship, resume feedback). Based on this intent, the appropriate backend agent is triggered.
+
+3. **Specialized Agents**:  
+   - **Job Search Agent**: Fetches relevant job listings from HerKey and SerpAPI.
+   - **Resume Analyst**: Analyzes and provides feedback on the uploaded resume.
+   - **Learning Advisor**: Recommends courses or learning resources based on user needs.
+
+4. **Response Generation**:  
+   The backend compiles the response (jobs, advice, feedback) and sends it back to the frontend.
+
+5. **Bias Guardrails**:  
+   Throughout the conversation, Asha checks for gender bias in questions and redirects or reframes as needed.
+
+6. **User Receives Feedback**:  
+   The frontend displays the relevant information (jobs, resources, or advice) to the user, offering a continuous, empathetic, and personalized experience.
 
 ![AshaAI](https://github.com/user-attachments/assets/87fbb4d3-9b61-47c3-9a44-79e35deab183)
