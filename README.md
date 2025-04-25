@@ -3,12 +3,10 @@ This guide will help you set up and deploy the Asha AI chatbot (FastAPI backend 
 
 📦 Local Development
 ✅ Frontend
-bash
-Copy
-Edit
-cd frontend/my-app
+
+```cd frontend/my-app
 npm install
-npm run start
+npm run start```
 ✅ Backend
 bash
 Copy
