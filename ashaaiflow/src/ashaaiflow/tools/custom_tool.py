@@ -340,7 +340,9 @@ class CommunitySearchTool(BaseTool):
 
         # Search query to find online communities (forums, groups, etc.)
         search_query = f"{keyword} community OR forum OR group"
-
+        if type(keyword) == dict:
+            keyword = keyword["description"]
+            
         params = {
             "engine": "google",
             "q": search_query,
