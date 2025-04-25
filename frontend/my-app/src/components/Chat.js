@@ -12,7 +12,13 @@ const Chat = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     addBotMessage: (message) => {
+      if (message === "__LOADING__") {
+      setIsSending(true);
+    } else if (message === "__DONE__") {
+      setIsSending(false);
+    } else {
       displayMessage(message, "bot-message");
+    }
     }
   }));
 
@@ -25,7 +31,7 @@ const Chat = forwardRef((props, ref) => {
     setIsSending(true);
 
     try {
-      const response = await fetch('http://104.197.6.224:8000/api/run-flow', {
+      const response = await fetch('http://localhost:8000/api/run-flow', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,10 +62,8 @@ const Chat = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
       scrollToBottom();
-    }, 100);
-  }, [isSending, messages.length]);
+  }, [messages.length]);
 
   const formatMessage = (message, className) => {
     if (className === "user-message") {

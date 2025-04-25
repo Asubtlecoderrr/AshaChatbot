@@ -20,6 +20,7 @@ const Navbar = ({ onBotMessage }) => {
       const formData = new FormData();
       formData.append("file", file);
       onBotMessage?.("✅ Your resume has been uploaded successfully and is being analyzed!");
+      onBotMessage?.("__LOADING__");
 
 
       try {
@@ -35,6 +36,7 @@ const Navbar = ({ onBotMessage }) => {
           const data = await response.json();
           console.log(data);
           const botResponse = data.result?.replace(/\n/g, "<br>") || "Sorry, I didn't understand that.";
+          onBotMessage?.("__DONE__");
           onBotMessage?.(botResponse);
           setTimeout(() => setShowAlert(false), 3000);
         } else {

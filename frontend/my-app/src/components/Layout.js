@@ -10,10 +10,13 @@ const Layout = () => {
     chatRef.current?.addBotMessage(message);
   };
 
+
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar onBotMessage={handleBotMessage} />
-      <Chat ref={chatRef} />
+      <div style={{ flex: 1, overflow: 'auto' }}>
+        <Chat ref={chatRef} />
+      </div>
     </div>
   );
 };
