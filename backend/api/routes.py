@@ -66,6 +66,8 @@ def upload_and_analyze_resume(file: UploadFile = File(...), current_user=Depends
     if not file.filename.endswith((".pdf", ".docx", ".doc")):
         raise HTTPException(status_code=400, detail="Only .pdf, .docx, or .txt files allowed.")
 
+    user_id_var.set(current_user.id)
+
     UPLOAD_DIR = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}"
     os.makedirs(UPLOAD_DIR, exist_ok=True)
 
