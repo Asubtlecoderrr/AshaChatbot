@@ -84,6 +84,7 @@ class CareerGuidanceFlow(Flow[CareerState]):
                 Also consider what the last assistant message was asking, and assume the user wants to continue that flow if they replied vaguely.
 
                 Choose from these intents:
+                - gratitude
                 - job_search
                 - resume_analysis
                 - recommend_learning
@@ -206,7 +207,7 @@ class CareerGuidanceFlow(Flow[CareerState]):
 
 
 
-    @listen(or_("guidance", "motivation_boost","conversation_continues","greeting","goodbye"))
+    @listen(or_("guidance", "motivation_boost","conversation_continues","greeting","goodbye","gratitude"))
     def provide_guidance(self, _):
         
         inputs = {
@@ -303,7 +304,6 @@ class CareerGuidanceFlow(Flow[CareerState]):
             allow_delegation=False,
             verbose=True,
             llm=llm_2,
-            tools=[ContextReaderTool()],
         )
         rephrase_response_task = Task(
             description= f"""
@@ -317,9 +317,10 @@ class CareerGuidanceFlow(Flow[CareerState]):
 
             Rephrase the response in a more engaging conversation while keeping all the information intact. If the response includes links, strictly do not remove them—ensure they are retained and clearly shown.
 
-            Strictly only If the agents response did not solve users query, it should **apologize sincerely in a friendly, human way**, explain what went wrong, and immediately adjust its response to better match the users needs.
+            Strictly only If the agents made some mistake previously or the **{self.state.user_query}** sentiment sounds disappointing, 
+            then only you should **apologize sincerely in a friendly, human way**, explain what went wrong, and immediately adjust its response to better match the users needs.
             
-            If the response from the other agent didn’t answer the query or had an error, address the user’s query directly in an encouraging and empathetic way.
+            If the response from the other agent didnt answer the query or had an error, address the users query directly in an encouraging and empathetic way.
 
             You may use the users name (“{self.state.user_name}”) a little, but dont overuse it.
             

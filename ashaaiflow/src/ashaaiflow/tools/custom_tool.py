@@ -102,6 +102,7 @@ class HerKeyLearningAPITool(BaseTool):
 class JobAPIToolInput(BaseModel):
     keywords: StrictStr = Field(..., description="Keyword/skill to search for jobs")
     location: Optional[StrictStr] = Field(None, description="Location to search for jobs")
+    experience: Optional[StrictStr] = Field(None, description="Experience level to search for jobs")
 
 class JobAPITool(BaseTool):
     name: str = "job_api"
@@ -110,7 +111,7 @@ class JobAPITool(BaseTool):
     )
     args_schema: Type[BaseModel] = JobAPIToolInput
         
-    def _run(self, keywords: str, location: Optional[str]) -> list:
+    def _run(self, keywords: str, location: Optional[str],experience: Optional[str]) -> list:
         count=10
         days_ago=7
         platform="all"
@@ -121,7 +122,7 @@ class JobAPITool(BaseTool):
 
             # Prepare query parameters
             if location:
-                query = f"{keywords} jobs in {location}"
+                query = f"{keywords} jobs in {location} with {experience} experience" if experience else f"{keywords} jobs in {location}"
             else:
                 query = f"{keywords} jobs in India"
                 
@@ -191,8 +192,8 @@ class JobAPITool(BaseTool):
 
 class YTLearningToolSchema(BaseModel):
     
-    cohort : str = Field(..., description="cohort of the user")
-    keyword: str = Field(..., description="keyword/skills to search for courses")
+    cohort : Dict = Field(..., description="cohort of the user")
+    keyword: Dict = Field(..., description="keyword/skills to search for courses")
 
 class YTLearningTool(BaseTool):
     name: str = "youtube courses"
@@ -201,13 +202,16 @@ class YTLearningTool(BaseTool):
     )
     args_schema: Type[BaseModel] = YTLearningToolSchema
         
-    def _run(self, cohort: str, keyword: str) -> list:
+    def _run(self, cohort: dict, keyword: dict) -> list:
 
         LEVEL_KEYWORDS = {
             "beginner": ["introduction", "for beginners", "basics", "zero to hero"],
             "intermediate": ["hands-on", "real world", "intermediate"],
             "advanced": ["advanced", "deep dive", "expert level"]
         }
+        
+        cohort = cohort["description"]
+        keyword = keyword["description"]
         count=5
         if cohort=="Riser":
             level = ["intermediate","advanced"]
@@ -260,7 +264,7 @@ class ResumeReaderTool(BaseTool):
     def _run(self) -> str:
 
         user_id = user_id_var.get()
-        file_path = f'src/ashaaiflow/knowledge/{user_id}/'        
+        file_path = f'ashaaiflow/src/ashaaiflow/knowledge/{user_id}/'        
         file_patterns = ["*.pdf", "*.doc", "*.docx"]
         resume_file = None
 
@@ -269,7 +273,7 @@ class ResumeReaderTool(BaseTool):
             if files:
                 resume_file = files[0]  # Take the first match
                 break
-        resume_file = "ashaaiflow/src/ashaaiflow/knowledge/1/Vidhi Resume.pdf"
+        # resume_file = "ashaaiflow/src/ashaaiflow/knowledge/1/Vidhi Resume.pdf"
         if not resume_file:
             return "No resume file found."
         
@@ -291,11 +295,23 @@ class ContextReaderTool(BaseTool):
 
     def _run(self) -> str:
         user_id = user_id_var.get()
-        file_path = f"/Users/I528635/Desktop/hackathon-ai/AshaChatbot/ashaaiflow/src/ashaaiflow/knowledge/{user_id}/context.txt"
+        
+        file_path = f"ashaaiflow/src/ashaaiflow/knowledge/{user_id}"
+        file_patterns = ["*.txt"]
+        txt_file = None
+
+        for pattern in file_patterns:
+            files = glob.glob(os.path.join(file_path, pattern))
+            if files:
+                txt_file = files[0] 
+                break
+            
+        if not txt_file:
+            return "No context file found."
 
         try:
             decrypted_lines = []
-            with open(file_path, "r") as file:
+            with open(txt_file, "r") as file:
                 for line in file:
                     decrypted_line = cipher.decrypt(line.strip().encode()).decode()
                     decrypted_lines.append(decrypted_line)

@@ -3,14 +3,15 @@ resume_analysis_task:
     You are directly sending this analysis to user so keep the tone friendly and conversational.
     Analyze the user's resume details and extract key skills, strengths, gaps, and areas for improvement.
     Provide tailored suggestions for improvement, including format, keywords, and content alignment
-    with desired job roles and their career aspirations and stage. Strictly Keep the response concise and engaging. 
+    with desired job roles and their career aspirations and stage. Strictly Keep the response concise and engaging. Avoid greeting.
+    Dont put unnecessary things like "## Resume Analysis for Vidhi Doshi" in the response.
     
   expected_output: >
     Generate response in very engaging and concise language that is readable and easy to understand.
     A summary of the resume analysis, including:
       - key strengths
       - improvement areas
-      - suggestions to improve the resume.
+      - suggestions if any.
       - formatting tips
     All formatted in markdown.
 
