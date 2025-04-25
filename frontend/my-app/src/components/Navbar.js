@@ -50,6 +50,7 @@ const Navbar = ({ onBotMessage }) => {
       alert("Please select a valid PDF file!");
       setUploading(false);
     }
+    fileInputRef.current.value = null;
   };
 
   return (
