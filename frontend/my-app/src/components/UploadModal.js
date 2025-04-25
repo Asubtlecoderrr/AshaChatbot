@@ -22,7 +22,7 @@ const Navbar = () => {
       formData.append("file", file);
 
       try {
-        const response = await fetch("http://localhost:8000/api/upload-resume/", {
+        const response = await fetch("http://104.197.6.224:8000/api/upload-resume/", {
           method: "POST",
           headers: {'Authorization': `Bearer ${token}`, },
           body: formData,
