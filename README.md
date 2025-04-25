@@ -1,4 +1,5 @@
-🚀 Asha AI Bot – Deployment Guide
+**🚀 Asha AI Bot – Deployment Guide**  
+
 This guide will help you set up and deploy the Asha AI chatbot (FastAPI backend + React frontend) on a Google Cloud VM instance using Docker.
 
 📦 Local Development   
