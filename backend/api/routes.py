@@ -70,6 +70,11 @@ def upload_and_analyze_resume(file: UploadFile = File(...), current_user=Depends
 
     UPLOAD_DIR = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}"
     os.makedirs(UPLOAD_DIR, exist_ok=True)
+    
+    for existing_file in os.listdir(UPLOAD_DIR):
+        file_path = os.path.join(UPLOAD_DIR, existing_file)
+        if os.path.isfile(file_path) and existing_file.endswith(('.pdf', '.docx', '.doc')):
+            os.remove(file_path)
 
     file_path = os.path.join(UPLOAD_DIR, file.filename)
 
