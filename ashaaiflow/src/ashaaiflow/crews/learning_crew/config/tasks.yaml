@@ -1,6 +1,6 @@
 recommend_learning_task:
   description: >
-    Based on the user query : {user_query} cohort: {cohort} and by using context_tool, find users preferences , interest, background and skill gaps or aspirations if any.
+    Based on the user query : {user_query} cohort: {cohort} and by using User_context, find users preferences , interest, background and skill gaps or aspirations if any.
     to suggest learning resources, including courses, articles, events, and youtube videos.
     If the user is explicity mentioning the free and youtube keywords, then suggest free resources or youtube videos only.
     for women in career transition or growth based on their career roadmap.

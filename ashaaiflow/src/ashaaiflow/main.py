@@ -8,7 +8,7 @@ from .crews.resume_crew.resume_crew import ResumeCrew
 from .crews.community_crew.community_crew import CommunityCrew
 from crewai import LLM
 from .tools.custom_tool import skillsLocationResponse, ContextReaderTool
-from shared.user_context import user_id_var
+from shared.user_context import user_id_var, skill_var, location_var
 from concurrent.futures import ThreadPoolExecutor
 import json
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
@@ -30,6 +30,8 @@ class CareerGuidanceFlow(Flow[CareerState]):
     @start()
     def finding_insights(self):
         user_id_var.set(self.state.user_id)
+        skill_var.set(self.state.skills)
+        location_var.set(self.state.location)
         print(user_id_var.get(),"####################################################")
         contextTool = ContextReaderTool()
         context_content = contextTool._run()
@@ -313,10 +315,12 @@ class CareerGuidanceFlow(Flow[CareerState]):
             The user named {self.state.user_name} has expressed interest in **{self.state.intent}**. 
             The current user query was **{self.state.user_query}**.
             The response curated by another agent is **{self.state.response}**.
+            Dont change it just Rephrase the response in a more engaging conversation while keeping all the information intact. 
+            If the response includes links, *strictly* do not remove them—ensure they are retained and clearly shown.
+
             Retrieve the ongoing conversation context using the `ContextTool` and incorporate relevant past messages to ensure 
             this response feels like a natural continuation of the conversation.
 
-            Rephrase the response in a more engaging conversation while keeping all the information intact. If the response includes links, strictly do not remove them—ensure they are retained and clearly shown.
 
             Strictly only If the agents made some mistake previously or the **{self.state.user_query}** sentiment sounds disappointing, 
             then only you should **apologize sincerely in a friendly, human way**, explain what went wrong, and immediately adjust its response to better match the users needs.

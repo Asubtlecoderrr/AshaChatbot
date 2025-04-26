@@ -1,6 +1,8 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from ...tools.custom_tool import HerKeyJobAPITool, JobAPITool, ContextReaderTool
+from shared.user_context import skill_var, location_var
+
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
@@ -19,7 +21,7 @@ class JobCrew():
 
     herkey_job_tool = HerKeyJobAPITool()
     contextTool = ContextReaderTool() 
-    job_tool = JobAPITool()
+    job_api = JobAPITool(keywords=skill_var,location=location_var)
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     
@@ -30,7 +32,7 @@ class JobCrew():
             config=self.agents_config['job_search_agent'],
             verbose=True,
             llm=llm,
-            tools = [self.job_tool,self.contextTool,self.herkey_job_tool]
+            tools = [self.job_api,self.contextTool,self.herkey_job_tool]
         )
 
     # To learn more about structured task outputs,

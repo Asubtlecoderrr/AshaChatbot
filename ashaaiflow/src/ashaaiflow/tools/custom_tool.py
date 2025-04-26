@@ -100,16 +100,19 @@ class HerKeyLearningAPITool(BaseTool):
         return sessions
 
 class JobAPIToolInput(BaseModel):
-    keywords: str = Field(..., description="Keyword/skill to search for jobs")
-    location: str = Field(None, description="Location to search for jobs")
-    experience: str = Field(None, description="Experience level to search for jobs")
+    keywords: StrictStr = Field(..., description="Keyword/skill to search for jobs")
+    location: StrictStr = Field(None, description="Location to search for jobs")
+    # experience: StrictStr = Field(None, description="Experience level to search for jobs")
     
-    @model_validator(mode='before')
-    def convert_to_string(cls, values):
-        for field in ['keywords', 'location', 'experience']:
-            if field in values and values[field] is not None:
-                values[field] = str(values[field])
-        return values
+    # @model_validator(mode='before')
+    # def convert_to_string(cls, values):
+        
+    #     for field in ['keywords', 'location', 'experience']:
+    #         if type(values[field]) == 'str':
+    #             continue
+    #         if field in values and values[field] is not None:
+    #             values[field] = str(values[field])
+    #     return values
 
 
 class JobAPITool(BaseTool):
@@ -119,7 +122,7 @@ class JobAPITool(BaseTool):
     )
     args_schema: Type[BaseModel] = JobAPIToolInput
         
-    def _run(self, keywords: str, location: str, experience: str) -> list:
+    def _run(self, keywords: StrictStr, location: StrictStr) -> list:
         count=10
         days_ago=7
         platform="all"
@@ -130,7 +133,7 @@ class JobAPITool(BaseTool):
 
             # Prepare query parameters
             if location:
-                query = f"{keywords} jobs in {location} with {experience} experience" if experience else f"{keywords} jobs in {location}"
+                query = f"{keywords} jobs in {location}"
             else:
                 query = f"{keywords} jobs in India"
                 
@@ -302,7 +305,7 @@ class ResumeReaderTool(BaseTool):
 
 
 class ContextReaderTool(BaseTool):
-    name: str = "User Context Reader"
+    name: str = "User_context"
     description: str = """Reads the context.txt file for the current user query to extract conversation history and preferences and follow the flow of conversation"""
 
     def _run(self) -> str:

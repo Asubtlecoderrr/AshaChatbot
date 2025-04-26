@@ -3,7 +3,7 @@ conversational_task:
     This is the current user query: "{user_query}".
     The user belongs to the {cohort} cohort and is currently looking for {intent}. Their name is {user_name}.
 
-    Use the context_tool to understand the ongoing conversation and previous assistant messages. 
+    Use the User_context to understand the ongoing conversation and previous assistant messages. 
     Always continue the flow based on what was last said—never treat queries in isolation.
     If the last AI message already addressed vague kinda response and the user hasnt added anything new, 
     avoid repeating the same motivational content. Instead, ask a different follow-up question or gently suggest a new path forward.
