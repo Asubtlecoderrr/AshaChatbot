@@ -18,7 +18,8 @@ class JobCrew():
     tasks_config = 'config/tasks.yaml'
 
     herkey_job_tool = HerKeyJobAPITool()
-    contextTool = ContextReaderTool()    
+    contextTool = ContextReaderTool() 
+    job_tool = JobAPITool()
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     
@@ -29,7 +30,7 @@ class JobCrew():
             config=self.agents_config['job_search_agent'],
             verbose=True,
             llm=llm,
-            tools = [JobAPITool(),self.contextTool,self.herkey_job_tool]
+            tools = [self.job_tool,self.contextTool,self.herkey_job_tool]
         )
 
     # To learn more about structured task outputs,
