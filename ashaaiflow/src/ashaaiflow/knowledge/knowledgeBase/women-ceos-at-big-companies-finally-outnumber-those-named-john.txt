@@ -1,0 +1,51 @@
+Welcome back to Work Shift’s weekly newsletter. I’m Matt Boyle, your host, and this week our main story is a collaboration with Jeff Green on our Equality team. We want to hear from you, so send ideas, tips and feedback to mboyle20@bloomberg.net. Not signed up to receive this newsletter? You can do so here.
+
+Quick Hits
+When managers try to be therapists at work, employees’ mental health suffers.
+Google employees say the company’s rush to win in AI led to ethical lapses.
+For years, London was the top place to work for international bankers. Now, increasingly, it’s Paris.
+US workers are finally starting to see pay gains outpace inflation.
+Hospitals have “Uber-ized” nursing to deal with crippling staff shortages.
+A Dubious Milestone for Women CEOs
+Back in 2015, the New York Times did a story about how fewer women ran big companies than men named John. It struck a nerve and merited a follow-up piece a few years later, which expanded the analysis to government and academic circles.
+
+Lauren Harris, a Stanford University economics doctoral student, recalls hearing about those stories when she was in high school. For a recent class project, and also out of “morbid curiosity,” Harris decided to revisit the issue. She analyzed the share of women CEOs compared to those with the name John or a common alternative, like Jon or Jonathan, among a database of more than 1,500 companies.
+
+Recently, Harris told us about her research, and we decided to apply the Bloomberg terminal’s data-crunching prowess to get a fresh answer to a question that, frankly, shouldn’t even have to be asked.
+
+Why such a fuss over names? “Names put statistics in human terms,” said Ann Shepherd, co-founder and chief operating officer of Him for Her, a firm that advocates for women on private company boards.
+
+The good news: In what’s admittedly a minor victory, the record 41 women now running S&P 500 companies no longer need to measure themselves against John, or, for that matter, any Tom, Dick or Harry. No single male name matches their number, according to our analysis of CEO first names in the benchmark index from 2015 to 2023. (Harris, who used a larger sample going back to 1994, reached a similar conclusion.)
+
+Female CEOs first outnumbered any single male name among S&P 500 CEOs in 2018. But they tied with James the following year and didn’t really break free from the men until this past year, when ten new women joined their ranks, including Jennifer Rumsey, CEO of truck-engine maker Cummins.
+
+Record Number of S&P 500 Female CEOs
+Female CEOs have widened the gap with popular male CEO names
+
+Our analysis found another data point that illustrates another trend diminishing the preponderance of Johns: There are now 186 unique first names that appear among S&P 500 CEOs, up from 133 in 2015. That's, in part, due to the rise of non-Western or otherwise non-Biblical first names among the group, like Reshma Kewalramani, CEO of Vertex Pharmaceuticals, who came to the US from India when she was 11.
+“We still have a long way to go,” said Rumsey, who last year became the first female CEO in the company’s 104-year history. “This question, how does it feel to be a woman in this role, can cause you to question sometime: Do people think I got this role because I’m a woman? Am I confident in myself? What are other people thinking of me?”
+
+Rumsey says she does think about breaking down barriers from time to time, but knows that “I’m CEO because I’m the right person for the role at this time for Cummins.”
+
+Not all women share her confidence. That’s due in part to social norms that have long discouraged girls from exhibiting leadership characteristics while growing up for fear of being labeled “bossy,” according to Harris, whose whose doctoral research focuses on why women select roles in science, math and technology. Rumsey’s mother, a teacher, encouraged her to pursue a career in engineering, and she got a masters’ degree in mechanical engineering from Massachusetts Institute of Technology before joining Cummins in 2000 and rising up the ranks in what at the time was a male-dominated culture.
+“If you look around and don’t see someone who looks like you, it can be intimidating,” said Rumsey, adding that the leadership at Cummins today is half women. “People can question whether they belong in leadership.”
+
+
+Men rarely ask that question. That’s in part because “we usually think of CEOs as male. A lot of the things we associate with CEOs are stereotypically heterosexual male characteristics,” said Deborah Belle, a professor emerita at Boston University and an expert in gender-role perceptions. “We are certainly at a very interesting historical moment here, as we get more women into these fields, maybe a certain momentum develops because we have more images in our mind.”
+Those images are spreading. From politics to academia to entertainment, women are making gains. A dozen states elected female governors in November, the most ever. Women make up more business school deans than ever before. Beyoncé now has more Grammy awards than any other artist in history.
+
+Female CEOs are Gaining on Men
+Women now outnumber any single male given name in the S&P 500
+
+
+Source: Bloomberg
+
+*Data from S&P 500 as of Jan. 1, 2023
+
+There’s progress in the top ranks of business as well: 13% of all new S&P 500 CEOs last year were female, up from 6% in 2021, according to executive search firm Spencer Stuart. Yet with only 8% of S&P 500 CEO posts, female representation in corner offices now is nowhere near their 50.5% share of the US population.
+
+At least for now we can bid farewell to the long reign of Johns and Jameses and hope to usher in a new era: One where more Jennifers and Lisas — along with Reshmas — take those corner offices.
+
+Quotable
+"I had an old boss who said to me one time, 'You can visit pity city, but you can't live there.' So people, leave pity city."
+Andi Owen
