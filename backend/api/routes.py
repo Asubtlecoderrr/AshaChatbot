@@ -1,17 +1,22 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from pydantic import BaseModel
-from sqlmodel import Session, select
-from ..auth.utils import get_current_user, verify_access_token
 from ashaaiflow.src.ashaaiflow.main import CareerGuidanceFlow
 from ashaaiflow.src.ashaaiflow.crews.resume_crew.resume_crew import ResumeCrew
 import os
-import uuid
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from shared.user_context import user_id_var
+from fastapi.security import HTTPBearer
+from shared.user_context import user_id_var,session_id_var
 from cryptography.fernet import Fernet
-
+from .sessions import save_message_to_conversation
+import json
 from dotenv import load_dotenv
+from sqlmodel import Session as DBSession
+from ..auth.utils import get_current_user, create_or_get_session
+from fastapi import Form
+from typing import Optional
+from ..database.models import get_session
 load_dotenv() 
+
+BASE_KNOWLEDGE_DIR = "ashaaiflow/src/ashaaiflow/knowledge"
 
 router = APIRouter()
 http_bearer = HTTPBearer()
@@ -21,88 +26,104 @@ cipher = Fernet(fernet_key)
 
 class UserQueryRequest(BaseModel):
     user_query: str
+    session_id: str = None
 
-# Run flow - protected route requiring JWT token
+
 @router.post("/run-flow")
 def run_flow(
     payload: UserQueryRequest, 
-    current_user=Depends(get_current_user)
+    current_user=Depends(get_current_user),
+    db: DBSession=Depends(get_session),
 ):
     
     try:        
         user_name = current_user.name
-        user_name = user_name.split(" ")[0] if user_name else user_name.split(" ")[1]
-        path = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}/context.txt"
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        print(payload.session_id)
+        session_id = payload.session_id or  create_or_get_session(current_user.id, db)
+        session_dir = os.path.join(BASE_KNOWLEDGE_DIR, str(current_user.id), session_id)
+        os.makedirs(session_dir, exist_ok=True)
+        conversation_path = os.path.join(session_dir, "conversation.json")
 
-        if not os.path.exists(path):
-            ai_text =  "AI: " + """Hello! Welcome to ASHA AI 💜 You're in the perfect place to ask, learn, and grow — because YOU build tomorrow.  And it all starts with just one question !!""" + "\n"
-            encrypted_ai = cipher.encrypt(ai_text.encode()).decode()
-            with open(path, "w") as f:
-                f.write(encrypted_ai + "\n")
-            
+        if not os.path.exists(conversation_path):
+            with open(conversation_path, "w") as f:
+                json.dump([], f)
+
         user_id_var.set(current_user.id)
-        print(user_id_var.get(),"####################################################")
+        session_id_var.set(session_id)
         content_flow = CareerGuidanceFlow()
         content_flow.state.user_query = payload.user_query
         content_flow.state.user_id = current_user.id
+        content_flow.state.session_id = session_id
         content_flow.state.user_name = user_name
         
         result = content_flow.kickoff()
-        user_text = "User: " + content_flow.state.user_query
-        ai_text = "AI: " + content_flow.state.response
-        encrypted_user = cipher.encrypt(user_text.encode()).decode()
-        encrypted_ai = cipher.encrypt(ai_text.encode()).decode()
         
-        with open(path, "a+") as f:  # "a" mode = append
-            f.write(encrypted_user+ "\n")
-            f.write(encrypted_ai + "\n")
+        user_text = content_flow.state.user_query
+        ai_text = content_flow.state.response
+        
+        save_message_to_conversation(
+            session_id=session_id,
+            user_text=user_text,
+            ai_text=ai_text,
+            user_id=str(current_user.id)
+        )
         
         print(content_flow.state.response)
         
-        return {"result": content_flow.state.response}
+        return {"result": content_flow.state.response , "session_id": session_id}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+class ResumeUploadRequest(BaseModel):
+    session_id: str = None
+    
+    
 @router.post("/upload-resume")
-def upload_and_analyze_resume(file: UploadFile = File(...), current_user=Depends(get_current_user)):
+def upload_and_analyze_resume(
+    file: UploadFile = File(...),
+    current_user=Depends(get_current_user),
+    db: DBSession = Depends(get_session),
+    session_id: Optional[str] = Form(None)
+):
     if not file.filename.endswith((".pdf", ".docx", ".doc")):
         raise HTTPException(status_code=400, detail="Only .pdf, .docx, or .txt files allowed.")
 
-    user_id_var.set(current_user.id)
+    session_id = session_id or create_or_get_session(current_user.id, db)
+    session_dir = os.path.join(BASE_KNOWLEDGE_DIR, str(current_user.id), session_id)
+    os.makedirs(session_dir, exist_ok=True)
 
-    UPLOAD_DIR = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}"
-    os.makedirs(UPLOAD_DIR, exist_ok=True)
-    
-    for existing_file in os.listdir(UPLOAD_DIR):
-        file_path = os.path.join(UPLOAD_DIR, existing_file)
-        if os.path.isfile(file_path) and existing_file.endswith(('.pdf', '.docx', '.doc')):
-            os.remove(file_path)
+    # 3️⃣ Clean out old resume files in *this* session
+    for existing in os.listdir(session_dir):
+        path = os.path.join(session_dir, existing)
+        if os.path.isfile(path) and existing.lower().endswith((".pdf", ".docx", ".doc")):
+            os.remove(path)
 
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    resume_path = os.path.join(session_dir, file.filename)
 
     try:
-        with open(file_path, "wb") as buffer:
+        with open(resume_path, "wb") as buffer:
             buffer.write(file.file.read())
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to save file: {e}")
 
     try:
-        path = f"ashaaiflow/src/ashaaiflow/knowledge/{current_user.id}/context.txt"
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        user_id_var.set(current_user.id)
+        session_id_var.set(session_id)
         resume_crew = ResumeCrew()
         result = resume_crew.crew().kickoff()
         
-        user_text = "User: Resume Uploaded" 
-        ai_text = "AI: " + result.raw
-        encrypted_user = cipher.encrypt(user_text.encode()).decode()
-        encrypted_ai = cipher.encrypt(ai_text.encode()).decode()
+        user_text = "Resume Uploaded" 
+        ai_text = result.raw
         
-        with open(path, "a+") as f:  # "a" mode = append
-            f.write(encrypted_user+ "\n")
-            f.write(encrypted_ai + "\n")
-            
-        return {"result": result.raw}
+        save_message_to_conversation(
+            session_id=session_id,
+            user_text=user_text,
+            ai_text=ai_text,
+            user_id=str(current_user.id)
+        )
+    
+        return {"result": result.raw,"session_id": session_id}
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Resume analysis failed: {e}")

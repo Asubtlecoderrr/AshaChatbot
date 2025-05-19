@@ -8,7 +8,7 @@ from .crews.resume_crew.resume_crew import ResumeCrew
 from .crews.community_crew.community_crew import CommunityCrew
 from crewai import LLM
 from .tools.custom_tool import skillsLocationResponse, ContextReaderTool
-from shared.user_context import user_id_var, skill_var, location_var
+from shared.user_context import user_id_var, skill_var, location_var, session_id_var
 from concurrent.futures import ThreadPoolExecutor
 import json
 llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.2)
@@ -25,6 +25,7 @@ class CareerState(BaseModel):
     user_id: int = None
     user_name: str = None
     user_query : str = "Can you help me find communities related to Women enterpreneurs?"
+    session_id: str = None
 
 class CareerGuidanceFlow(Flow[CareerState]):
     @start()
@@ -32,7 +33,8 @@ class CareerGuidanceFlow(Flow[CareerState]):
         user_id_var.set(self.state.user_id)
         skill_var.set(self.state.skills)
         location_var.set(self.state.location)
-        print(user_id_var.get(),"####################################################")
+        session_id_var.set(self.state.session_id)
+
         contextTool = ContextReaderTool()
         context_content = contextTool._run()
         

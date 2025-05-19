@@ -9,7 +9,7 @@ import os
 from crewai_tools import (
     FileReadTool,
 )
-from shared.user_context import user_id_var
+from shared.user_context import user_id_var, session_id_var
 from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 load_dotenv()
@@ -22,6 +22,44 @@ cipher = Fernet(fernet_key.encode())
 
 SERPAPI_KEY = os.getenv("SERPAPI_KEY")
 
+import json
+
+def decrypt_file(file_patterns):
+    user_id = user_id_var.get()
+    session_id = session_id_var.get()
+    session_dir = os.path.join("ashaaiflow/src/ashaaiflow/knowledge", str(user_id), session_id)
+
+    file=None
+    for pattern in file_patterns:
+        files = glob.glob(os.path.join(session_dir, pattern))
+        if files:
+            file = files[0]  
+            break
+    if not file:
+        return "No file found."
+    
+    if "*.json" not in file_patterns:
+        text = ""
+        try:
+            with fitz.open(file) as doc:
+                for page_num in range(len(doc)):
+                    page = doc.load_page(page_num)
+                    text += page.get_text()
+        except Exception as e:
+            return f"Error reading resume: {str(e)}"
+        
+    with open(file) as f:
+        hist = json.load(f)
+    
+    decrypted_messages = []
+    for m in hist:
+        try:
+            raw_text = str(m.get("text", ""))
+            txt = cipher.decrypt(raw_text.encode("utf-8")).decode("utf-8")
+        except:
+            txt = ""  
+        decrypted_messages.append({"sender":m["sender"], "text":txt})
+    return decrypted_messages
 
 class HerkeyJobAPIToolInput(BaseModel):
     skills: str = Field(..., description="Skills of the user")
@@ -279,7 +317,8 @@ class ResumeReaderTool(BaseTool):
     def _run(self) -> str:
 
         user_id = user_id_var.get()
-        file_path = f'ashaaiflow/src/ashaaiflow/knowledge/{user_id}/'        
+        session_id = session_id_var.get()
+        file_path = f'ashaaiflow/src/ashaaiflow/knowledge/{user_id}/{session_id}'        
         file_patterns = ["*.pdf", "*.doc", "*.docx"]
         resume_file = None
 
@@ -309,34 +348,11 @@ class ContextReaderTool(BaseTool):
     description: str = """Reads the context.txt file for the current user query to extract conversation history and preferences and follow the flow of conversation"""
 
     def _run(self) -> str:
-        user_id = user_id_var.get()
-        
-        file_path = f"ashaaiflow/src/ashaaiflow/knowledge/{user_id}"
-        file_patterns = ["*.txt"]
-        txt_file = None
-
-        for pattern in file_patterns:
-            files = glob.glob(os.path.join(file_path, pattern))
-            if files:
-                txt_file = files[0] 
-                break
-            
-        if not txt_file:
-            return "No context file found."
-
-        try:
-            decrypted_lines = []
-            with open(txt_file, "r") as file:
-                for line in file:
-                    decrypted_line = cipher.decrypt(line.strip().encode()).decode()
-                    decrypted_lines.append(decrypted_line)
-            return "\n".join(decrypted_lines)
-
-        except FileNotFoundError:
-            return "No context file found for this user."
-        except Exception as e:
-            return f"Error reading or decrypting context file: {str(e)}"
-        
+       
+        file_patterns = ["*.json"]
+        text = decrypt_file(file_patterns)
+        return text
+         
 class CommunitySearchToolInput(BaseModel):
     keyword: StrictStr = Field(..., description="Keyword to search for communities")
 

@@ -1,0 +1,101 @@
+/* SessionList.css */
+
+.session-list-container {
+  width: 250px;
+  height: 100vh;
+  background-color: #f9f3ff;
+  border-right: 1px solid #e5d1fa;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(106, 13, 173, 0.05);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(106, 13, 173, 0.15) transparent;
+}
+
+/* Scrollbar styling for Webkit (Chrome, Safari, Edge) */
+.session-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.session-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.session-list-container::-webkit-scrollbar-thumb {
+  background-color: rgba(106, 13, 173, 0.1);
+  border-radius: 10px;
+}
+
+.session-list-container:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(106, 13, 173, 0.4);
+}
+
+.session-list-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #6A0DAD;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.session-item {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #f0eaff;
+  color: #3b0a55;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  border: none;
+}
+.session-item:focus,
+.session-item:active {
+  outline: none;
+}
+.session-item:focus {
+  outline: 2px solid #d5bfff; /* light purple outline */
+  outline-offset: 2px;
+}
+
+
+.session-item:hover {
+  background-color: #e5d1fa;
+}
+
+.session-item.selected {
+  background-color: #8e44ff;
+  color: white;
+  font-weight: bold;
+}
+.session-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.session-list-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #6A0DAD;
+  margin: 0;
+  text-align: left; /* <-- change this */
+}
+
+.new-chat-btn {
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.new-chat-btn:hover {
+  background-color: #5900b3;
+}
+

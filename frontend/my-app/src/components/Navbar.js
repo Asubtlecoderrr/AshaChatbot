@@ -2,11 +2,12 @@ import React, { useState, useRef } from 'react';
 import styles from "../styles/Navbar.module.css";
 import { Alert } from 'react-bootstrap';
 
-const Navbar = ({ onBotMessage }) => {
+const Navbar = ({ onBotMessage, onSessionIdReceived }) => {
   const [uploading, setUploading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const fileInputRef = useRef();
   const token = localStorage.getItem("token");
+  const sessionId = localStorage.getItem("sessionId");
 
   const uploadDocument = async (event) => {
     event.preventDefault();
@@ -19,12 +20,15 @@ const Navbar = ({ onBotMessage }) => {
     if (file && file.type === "application/pdf") {
       const formData = new FormData();
       formData.append("file", file);
+      if (sessionId) {
+        formData.append("session_id", sessionId);
+      }
+
       onBotMessage?.("✅ Your resume has been uploaded successfully and is being analyzed!");
       onBotMessage?.("__LOADING__");
 
-
       try {
-        const response = await fetch("http://104.197.6.224:8000/api/upload-resume/", {
+        const response = await fetch("http://localhost:8000/api/upload-resume/", {
           method: "POST",
           headers: { 'Authorization': `Bearer ${token}` },
           body: formData,
@@ -34,7 +38,12 @@ const Navbar = ({ onBotMessage }) => {
           sessionStorage.setItem('fileName', file.name);
           setShowAlert(true);
           const data = await response.json();
-          console.log(data);
+
+          if (data.session_id) {
+            localStorage.setItem("sessionId", data.session_id);
+            onSessionIdReceived?.(data.session_id); 
+          }
+
           const botResponse = data.result?.replace(/\n/g, "<br>") || "Sorry, I didn't understand that.";
           onBotMessage?.("__DONE__");
           onBotMessage?.(botResponse);
@@ -52,6 +61,7 @@ const Navbar = ({ onBotMessage }) => {
       alert("Please select a valid PDF file!");
       setUploading(false);
     }
+
     fileInputRef.current.value = null;
   };
 

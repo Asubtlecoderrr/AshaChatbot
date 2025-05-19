@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// App.js
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -7,15 +8,24 @@ import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppWrapper() {
-  const [user, setUser] = useState(null); // null = not logged in
-  const [isLogin, setIsLogin] = useState(true); // toggle between login/signup
-  const navigate = useNavigate(); // Initialize navigate
+  const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    // Navigate to the appropriate page based on the toggle
     navigate(isLogin ? "/signup" : "/login");
   };
+
+  // Clear session_id on page reload (not on internal navigation)
+  useEffect(() => {
+    const handleReload = () => {
+      localStorage.removeItem("sessionId");
+    };
+
+    window.addEventListener("beforeunload", handleReload);
+    return () => window.removeEventListener("beforeunload", handleReload);
+  }, []);
 
   return (
     <div className="App">
@@ -40,7 +50,7 @@ function AppWrapper() {
 
 function App() {
   return (
-    <Router> {/* Ensure the entire app is inside the Router */}
+    <Router>
       <AppWrapper />
     </Router>
   );
